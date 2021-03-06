@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:avalon.helloWorld"
+    "onCommand:avalon.helloWorld",
+    "onCommand:avalon.askQuestion"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -18,6 +19,11 @@
       {
         "command": "avalon.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "avalon.askQuestion",
+        "category": "Avalon",
+        "title": "Ask question"
       }
     ]
   },

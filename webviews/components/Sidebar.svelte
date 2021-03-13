@@ -1,13 +1,44 @@
 <script lang="ts">
-    let counter = 0;
+    let todos: Array<{ text: string; completed: boolean }> = [];
+
+    let text: string = "";
 </script>
 
-<div>
-    Counter: <h1>{counter}</h1>
+<form
+    on:submit|preventDefault={() => {
+        todos = [{ text, completed: false }, ...todos];
+        text = "";
+    }}
+>
+    <input bind:value={text} />
+</form>
 
-    <button
-        on:click={() => {
-            counter++;
-        }}>Increment</button
-    >
-</div>
+<ul>
+    {#each todos as todo (todo.text)}
+        <li class:strikeout={todo.completed}>
+            <input
+                type="checkbox"
+                checked={todo.completed}
+                on:click={() => {
+                    todo.completed = !todo.completed;
+                }}
+            />
+            {todo.text}
+        </li>
+    {/each}
+</ul>
+
+<button
+    on:click={() => {
+        tsvscode.postMessage({
+            type: "onInfo",
+            value: "Info Message",
+        });
+    }}>Click me</button
+>
+
+<style>
+    .strikeout {
+        text-decoration: line-through;
+    }
+</style>

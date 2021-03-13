@@ -81,6 +81,9 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
 			</head>
       <body>
+                <script nonce="${nonce}">
+                const tsvscode = acquireVsCodeApi();
+                </script>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;

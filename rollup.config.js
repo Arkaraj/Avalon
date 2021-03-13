@@ -27,6 +27,8 @@ export default fs
                     dev: !production,
                     // we'll extract any component CSS out into
                     // a separate file - better for performance
+                    emitCss: false,
+        css: true,
                     css: (css) => {
                         css.write(name + ".css");
                     },

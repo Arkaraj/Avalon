@@ -3,10 +3,12 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
 interface UserInterface extends Document {
+    githubId: string | null,
     name: string;
 }
 
 const UserSchema = new Schema({
+    githubId: { type: String, required: true },
     name: { type: String, required: true },
 });
 

@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
+import { TokenManager } from "./TokenManager";
 
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
@@ -79,13 +80,14 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 				<link href="${styleVSCodeUri}" rel="stylesheet">
         <link href="${styleMainUri}" rel="stylesheet">
 
+        <script nonce="${nonce}">
+                const tsvscode = acquireVsCodeApi();
+                const accessToken = ${JSON.stringify(TokenManager.getToken())}
+        </script>
 			</head>
       <body>
-                <script nonce="${nonce}">
-                const tsvscode = acquireVsCodeApi();
-                </script>
-				<script nonce="${nonce}" src="${scriptUri}"></script>
-			</body>
+      <script nonce="${nonce}" src="${scriptUri}"></script>
+	    </body>
 			</html>`;
     }
 }

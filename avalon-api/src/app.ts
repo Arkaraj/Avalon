@@ -5,7 +5,7 @@ import User from "./models/User";
 import { Strategy as GitHubStrategy } from 'passport-github';
 import passport from "passport";
 import jwt from 'jsonwebtoken';
-
+import cors from "cors";
 
 const main = async () => {
 
@@ -35,6 +35,8 @@ const main = async () => {
 
     app.use(passport.initialize());
 
+    app.use(cors({ origin: "*" }));
+
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -55,9 +57,42 @@ const main = async () => {
             }
 
             // console.log(profile);
-            cb(null, { accessToken: jwt.sign({ userId: user?.id }, process.env.SECRET_JWT, { expiresIn: "3hr" }) });
+            cb(null, { accessToken: jwt.sign({ userId: user?._id }, process.env.SECRET_JWT, { expiresIn: "3h" }) });
         }
     ));
+
+    app.get("/me", async (req, res) => {
+        // Bearer ej312rwjflksjflkal...
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader) {
+            res.send({ user: null });
+            return;
+        }
+
+        const token = authHeader.split(" ")[1];
+        if (!token) {
+            res.send({ user: null });
+            return;
+        }
+
+        let userId = "";
+        try {
+
+            const payload: any = jwt.verify(token, process.env.SECRET_JWT);
+            userId = payload.userId;
+            console.log(userId);
+
+        } catch (err) {
+            res.send({ user: null });
+            return;
+        }
+
+        const user = await User.findById(userId);
+
+        res.send({ user });
+
+    });
 
     app.get("/", (_req, res) => {
         res.send("hello");

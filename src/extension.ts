@@ -1,12 +1,18 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { authenticate } from './authenticate';
 import { HelloWorldPanel } from './HelloWorldPanel';
 import { SidebarProvider } from './sidebarProvider';
+import { TokenManager } from './TokenManager';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+
+	TokenManager.globalState = context.globalState;
+
+	// console.log("Token value is:", TokenManager.getToken());
 
 	// console.log('Congratulations, your extension "avalon" is now active!');
 
@@ -22,6 +28,12 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('avalon.helloWorld', () => {
 			// vscode.window.showInformationMessage('Hello World from Avalon!');
 			HelloWorldPanel.createOrShow(context.extensionUri);
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('avalon.authenticate', () => {
+			authenticate();
 		})
 	);
 

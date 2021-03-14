@@ -11,6 +11,8 @@
   "author": "Arkaraj",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.10",
+    "cors": "^2.8.5",
     "dotenv-save": "^1.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

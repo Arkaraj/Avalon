@@ -8,7 +8,7 @@ interface UserInterface extends Document {
 }
 
 const UserSchema = new Schema({
-    githubId: { type: String, required: true },
+    githubId: { type: String, required: true, unique: true },
     name: { type: String, required: true },
 });
 

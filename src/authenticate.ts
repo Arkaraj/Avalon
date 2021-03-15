@@ -3,7 +3,7 @@ import { apiBaseUrl } from "./constant";
 import * as polka from "polka";
 import { TokenManager } from "./TokenManager";
 
-export const authenticate = () => {
+export const authenticate = (cb: () => void) => {
 
     const app = polka();
 
@@ -19,6 +19,7 @@ export const authenticate = () => {
 
         res.end(`<h1>Auth was sucessful, you can close this now</h1>`);
 
+        cb();
         app.server?.close();
     });
 

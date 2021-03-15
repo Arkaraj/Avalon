@@ -81,7 +81,6 @@ const main = async () => {
 
             const payload: any = jwt.verify(token, process.env.SECRET_JWT);
             userId = payload.userId;
-            console.log(userId);
 
         } catch (err) {
             res.send({ user: null });

@@ -33,7 +33,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('avalon.authenticate', () => {
-			authenticate();
+			try {
+				authenticate(() => {
+
+				});
+			} catch (err) {
+				console.log(err);
+			}
 		})
 	);
 

@@ -38,6 +38,8 @@
 {:else if user}
     <!-- <pre>{JSON.stringify(user,null,2)}</pre> -->
     <Task {user} />
+    <!-- <div>Hello {user.name}</div> -->
+
     <button
         on:click={() => {
             accessToken = "";

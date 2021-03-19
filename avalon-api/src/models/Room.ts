@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { model, Schema, Model, Document } from 'mongoose';
+import { model, Schema, Model, Document, Types } from 'mongoose';
 import { nanoid } from 'nanoid';
 
 interface IRoom extends Document {
-    Admin: string;
+    admin: Array<Types.ObjectId | null>;
     name: string;
     code: string;
-
+    members: Array<Types.ObjectId | null>;
 }
 
 const RoomSchema: Schema = new Schema({
-    Admin: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    admin: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     name: { type: String, required: true },
     code: { type: String, default: () => nanoid(6) },
     members: [{ type: Schema.Types.ObjectId, ref: 'User' }]

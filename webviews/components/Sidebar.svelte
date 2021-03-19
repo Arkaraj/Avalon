@@ -21,7 +21,7 @@
                         },
                     });
                     const data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     user = data.user;
                     loading = false;
 
@@ -33,6 +33,7 @@
     });
 </script>
 
+<!-- svelte-ignore missing-declaration -->
 {#if loading}
     <div>Loading...</div>
 {:else if user}

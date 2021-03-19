@@ -1,11 +1,15 @@
+/* eslint-disable eqeqeq */
 require("dotenv-save").config();
 import express from "express";
-import { connect } from "mongoose";
+import { CallbackError, connect } from "mongoose";
 import User from "./models/User";
 import { Strategy as GitHubStrategy } from 'passport-github';
 import passport from "passport";
 import jwt from 'jsonwebtoken';
 import cors from "cors";
+import Task from "./models/Task";
+import { isAuth, RequestwithUserId } from "./isAuth";
+import Room from "./models/Room";
 
 const main = async () => {
 
@@ -36,6 +40,7 @@ const main = async () => {
     app.use(passport.initialize());
 
     app.use(cors({ origin: "*" }));
+    app.use(express.json());
 
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
@@ -61,7 +66,7 @@ const main = async () => {
         }
     ));
 
-    app.get("/me", async (req, res) => {
+    app.get("/me", async (req: any, res) => {
         // Bearer ej312rwjflksjflkal...
         const authHeader = req.headers.authorization;
 
@@ -76,18 +81,18 @@ const main = async () => {
             return;
         }
 
-        let userId = "";
+        // let userId = "";
         try {
 
             const payload: any = jwt.verify(token, process.env.SECRET_JWT);
-            userId = payload.userId;
+            (req as any).userId = payload.userId;
 
         } catch (err) {
             res.send({ user: null });
             return;
         }
 
-        const user = await User.findById(userId);
+        const user = await User.findById(req.userId);
 
         res.send({ user });
 
@@ -98,6 +103,85 @@ const main = async () => {
     });
 
     app.get('/auth/github', passport.authenticate('github', { session: false }));
+
+    app.post('/task', isAuth, async (req, res) => {
+        const task = await (await Task.create(req.body)).save();
+
+        res.send({ task });
+    });
+
+    app.post('/room', isAuth, async (req: any, res) => {
+
+        const { name } = req.body;
+
+        const window = {
+            "admin": [req.userId],
+            name
+        };
+
+        const room = await (await Room.create(window)).save();
+
+        res.send({ room });
+    });
+
+    app.post("/join", isAuth, async (req: any, res) => {
+
+        const { code } = req.body;
+
+        const room = await Room.findOne({ code });
+
+        if (!room) {
+            res.send({ msg: "Invalid room code", msgError: true });
+        } else {
+            // check if the user is already there or not, if the user is the admin or not
+
+            if (room.members.includes(req.userId) || room.admin.includes(req.userID)) {
+                res.send({ msg: "User already a member", msgError: true });
+            }
+            else {
+
+                room.members.push(req.userId);
+
+                room.save((err: CallbackError) => {
+                    if (err) {
+                        res.send({ msg: "Some error occured", msgError: true });
+                    }
+                    else {
+                        res.send({ room, msgError: false });
+                    }
+                });
+
+            }
+
+        }
+
+    });
+
+    app.delete("/room/:roomId", isAuth, async (req: any, res) => {
+
+        try {
+            const room = await Room.findById(req.params.roomId);
+
+            if (!room) {
+                res.send({ msg: "Invalid room", msgError: true });
+            } else {
+                room.members = room.members.filter(r => r != req.userId);
+
+                room.save((err: CallbackError) => {
+                    if (err) {
+                        res.send({ msg: "Some error occured", msgError: true });
+                    }
+                    else {
+                        res.send({ room, msgError: false });
+                    }
+                });
+            }
+
+        } catch (err) {
+            res.send({ msg: "Invalid room", msgError: true });
+        }
+
+    });
 
     app.get('/auth/github/callback',
         passport.authenticate('github', { session: false }),

@@ -10,6 +10,9 @@ import cors from "cors";
 import Task from "./models/Task";
 import { isAuth, RequestwithUserId } from "./isAuth";
 import Room from "./models/Room";
+import room from "./routes/room";
+import task from "./routes/task";
+import admin from "./routes/admin";
 
 const main = async () => {
 
@@ -41,6 +44,10 @@ const main = async () => {
 
     app.use(cors({ origin: "*" }));
     app.use(express.json());
+    app.use("/room", isAuth, room);
+    // there should be a isAdmin middleware for this
+    app.use("/task", isAuth, task);
+    app.use("/admin", isAuth, admin);
 
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
@@ -104,26 +111,7 @@ const main = async () => {
 
     app.get('/auth/github', passport.authenticate('github', { session: false }));
 
-    app.post('/task', isAuth, async (req, res) => {
-        const task = await (await Task.create(req.body)).save();
-
-        res.send({ task });
-    });
-
-    app.post('/room', isAuth, async (req: any, res) => {
-
-        const { name } = req.body;
-
-        const window = {
-            "admin": [req.userId],
-            name
-        };
-
-        const room = await (await Room.create(window)).save();
-
-        res.send({ room });
-    });
-
+    // Joining a room
     app.post("/join", isAuth, async (req: any, res) => {
 
         const { code } = req.body;
@@ -153,32 +141,6 @@ const main = async () => {
 
             }
 
-        }
-
-    });
-
-    app.delete("/room/:roomId", isAuth, async (req: any, res) => {
-
-        try {
-            const room = await Room.findById(req.params.roomId);
-
-            if (!room) {
-                res.send({ msg: "Invalid room", msgError: true });
-            } else {
-                room.members = room.members.filter(r => r != req.userId);
-
-                room.save((err: CallbackError) => {
-                    if (err) {
-                        res.send({ msg: "Some error occured", msgError: true });
-                    }
-                    else {
-                        res.send({ room, msgError: false });
-                    }
-                });
-            }
-
-        } catch (err) {
-            res.send({ msg: "Invalid room", msgError: true });
         }
 
     });

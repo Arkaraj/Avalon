@@ -1,0 +1,1 @@
+// To check if the user is the admin of the room or not

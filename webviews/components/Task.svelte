@@ -11,7 +11,7 @@
 
 <form
     on:submit|preventDefault={() => {
-        todos = [{ text, completed: false }, ...todos];
+        // todos = [{ text, completed: false }, ...todos];
         text = "";
     }}
 >

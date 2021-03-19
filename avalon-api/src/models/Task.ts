@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { model, Schema, Model, Document, Types } from 'mongoose';
+import { model, Schema, Document, Types } from 'mongoose';
 
 interface ITask extends Document {
     text: string | null;

@@ -44,7 +44,11 @@ room.get("/", async (req: any, res) => {
     // This is an array
     const rooms = await Room.find({ members: req.userId });
 
-    res.send({ rooms });
+    // All the rooms where user is the admin
+    // admin will be a array
+    const admin = await Room.find({ admin: req.userId });
+
+    res.send({ rooms, admin });
 
 });
 

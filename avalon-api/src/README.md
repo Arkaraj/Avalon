@@ -4,28 +4,30 @@
 
 ### General Routes
 
-- GET /room gets all rooms(where user is a member) of a user
+- [x] GET /room gets all rooms(where user is a member) of a user
 - [x] GET /croom gets all rooms created by the user
-- POST /room creates a room for the user// content: name
-- DELETE /room/:roomId user leaves the room
+- [x] POST /room creates a room for the user// content: name
+- [x] DELETE /room/:roomId user leaves the room
 
 ### Join
 
-- POST /join joins the room based on the nanoid code// content: code
+- [x] POST /join joins the room based on the nanoid code// content: code
 
 ### Task Routes
 
-- GET /tasks/:room_id gets tasks of the pirticular room
-- PUT /tasks/:room_id updates the tasks// content: {completed: true}
+- [x] GET /tasks/:room_id gets tasks of the pirticular room
+- [x] PUT /tasks/:room_id updates the tasks// content: {completed: true}
 
 ### Admins
 
-- GET admin/:room_id gets all members in the room with there tasks of that room
-- POST admin/task/:room_id/:user_id admins posts tasks to members// content: Task
-- DELETE admin/task/:room_id/:user_id deletes/removes the task
+- [x] GET admin/:room_id gets all members in the room with there tasks of that room
+- [x] POST admin/task/:room_id/:user_id admins posts tasks to members// content: Task
+- [x] DELETE admin/task/:room_id/:user_id deletes/removes the task
+
+- Get /admin/:roomId/:userId the specific students tasks(for admin) (**Important**)
 
 #### To do
-- [ ] Create all the routes
+- [x] Create all the routes
 - [ ] Connect it with Svelte, polka fetch
 
 

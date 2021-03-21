@@ -14,6 +14,22 @@ admin.get("/crooms", async (req: any, res) => {
 
 });
 
+admin.get("/:roomId", async (req: any, res) => {
+
+    Room.findById(req.params.roomId)
+        .populate("members").exec((err, document) => {
+            if (err) {
+                res.send({ msg: "Internal Error", msgError: true });
+            }
+            else {
+                const members = document?.members;
+
+                res.send({ members });
+            }
+        });
+
+});
+
 // Work on Progress
 // Creating tasks for other users
 admin.post('/task/:roomId/:userId', async (req: any, res) => {
@@ -24,7 +40,8 @@ admin.post('/task/:roomId/:userId', async (req: any, res) => {
     const setTask = {
         text,
         completed: false,
-        room: req.params.roomId
+        room: req.params.roomId,
+        user: req.params.userId
     };
 
     const task = await (await Task.create(setTask)).save();
@@ -38,6 +55,14 @@ admin.post('/task/:roomId/:userId', async (req: any, res) => {
     user?.save();
 
     res.send({ task });
+});
+
+admin.delete("/task/:taskId", async (req: any, res) => {
+
+    await Task.findByIdAndDelete(req.params.taskId);
+
+    res.send({ msg: "successfully deleted the task", done: true });
+
 });
 
 

@@ -1,10 +1,11 @@
 import { RequestHandler, Request } from "express";
 import { Types } from 'mongoose';
 import jwt from 'jsonwebtoken';
+import User from "./models/User";
 
 export type RequestwithUserId = Request<{}, any, any, {}, Record<string, any>> & { userId: Types.ObjectId };
 
-export const isAuth: RequestHandler<{}, any, any, {}> = (req, _res, next) => {
+export const isAuth: RequestHandler<{}, any, any, {}> = async (req, _res, next) => {
 
     const authHeader = req.headers.authorization;
 
@@ -21,6 +22,8 @@ export const isAuth: RequestHandler<{}, any, any, {}> = (req, _res, next) => {
 
         const payload: any = jwt.verify(token, process.env.SECRET_JWT);
         (req as any).userId = payload.userId;
+        const user = await User.findById(payload.userId);
+        (req as any).user = user;
         next();
 
     } catch (err) {

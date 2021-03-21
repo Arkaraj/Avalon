@@ -5,7 +5,7 @@
 ### General Routes
 
 - GET /room gets all rooms(where user is a member) of a user
-- GET /croom gets all rooms created by the user
+- [x] GET /croom gets all rooms created by the user
 - POST /room creates a room for the user// content: name
 - DELETE /room/:roomId user leaves the room
 

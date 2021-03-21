@@ -1,8 +1,18 @@
 import { Router } from "express";
 import User from "../models/User";
 import Task from "../models/Task";
+import Room from "../models/Room";
 
 const admin = Router();
+
+// Get all rooms created
+admin.get("/crooms", async (req: any, res) => {
+
+    const rooms = await Room.find({ admin: req.userId });
+
+    res.send({ rooms });
+
+});
 
 // Work on Progress
 // Creating tasks for other users

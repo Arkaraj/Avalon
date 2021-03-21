@@ -12,18 +12,40 @@ room.post('/', async (req: any, res) => {
     const { name } = req.body;
 
     const window = {
-        "admin": [req.userId],
+        admin: [req.userId],
         name
     };
 
     const room = await (await Room.create(window)).save();
-    const user = await User.findById(req.userId);
+    // const user = await User.findById(req.userId);
 
-    user?.createdRooms.push(room._id);
+    // user?.createdRooms.push(room._id);
 
-    user?.save();
+    // user?.save();
 
     res.send({ room });
+});
+
+// joining a room
+room.post("/join", async (req: any, res) => {
+
+    const { code } = req.body;
+
+    const room = await Room.findOne({ code });
+
+    room?.members.push(req.userId);
+    await room?.save();
+
+});
+
+// Get all rooms you are a member of
+room.get("/", async (req: any, res) => {
+
+    // This is an array
+    const rooms = await Room.find({ members: req.userId });
+
+    res.send({ rooms });
+
 });
 
 // Leaving a room

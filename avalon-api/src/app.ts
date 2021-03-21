@@ -123,7 +123,7 @@ const main = async () => {
         } else {
             // check if the user is already there or not, if the user is the admin or not
 
-            if (room.members.includes(req.userId) || room.admin.includes(req.userID)) {
+            if (room.members.includes(req.userId) || room.admin.includes(req.userId)) {
                 res.send({ msg: "User already a member", msgError: true });
             }
             else {

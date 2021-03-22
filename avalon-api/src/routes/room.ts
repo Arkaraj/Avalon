@@ -2,9 +2,10 @@
 import { Router } from "express";
 import { CallbackError } from "mongoose";
 import Room from "../models/Room";
-import User from "../models/User";
 
 const room = Router();
+
+// All the routes here is tested and it works
 
 // Creating a room
 room.post('/', async (req: any, res) => {
@@ -27,16 +28,17 @@ room.post('/', async (req: any, res) => {
 });
 
 // joining a room
-room.post("/join", async (req: any, res) => {
+// room.post("/join", async (req: any, res) => {
 
-    const { code } = req.body;
+//     const { code } = req.body;
 
-    const room = await Room.findOne({ code });
+//     const room = await Room.findOne({ code });
 
-    room?.members.push(req.userId);
-    await room?.save();
+//     room?.members.push(req.userId);
+//     await room?.save();
 
-});
+//     res.send({ msg: "Joined room", room });
+// });
 
 // Get all rooms you are a member of
 room.get("/", async (req: any, res) => {

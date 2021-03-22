@@ -7,8 +7,7 @@ import { Strategy as GitHubStrategy } from 'passport-github';
 import passport from "passport";
 import jwt from 'jsonwebtoken';
 import cors from "cors";
-import Task from "./models/Task";
-import { isAuth, RequestwithUserId } from "./isAuth";
+import { isAuth } from "./isAuth";
 import Room from "./models/Room";
 import room from "./routes/room";
 import task from "./routes/task";
@@ -58,13 +57,16 @@ const main = async () => {
             let user = await User.findOne({ githubId: profile.id });
 
             if (user) {
-                user.name = profile.displayName;
+
+                user.name = profile.displayName ? profile.displayName : profile.username;
+
                 await user.save();
             }
             else {
                 // Create user
 
-                User.create({ name: profile.displayName, githubId: profile.id });
+                const name = profile.displayName ? profile.displayName : profile.username;
+                User.create({ name, githubId: profile.id });
 
             }
 
@@ -78,12 +80,14 @@ const main = async () => {
         const authHeader = req.headers.authorization;
 
         if (!authHeader) {
+
             res.send({ user: null });
             return;
         }
 
         const token = authHeader.split(" ")[1];
         if (!token) {
+
             res.send({ user: null });
             return;
         }
@@ -93,15 +97,14 @@ const main = async () => {
 
             const payload: any = jwt.verify(token, process.env.SECRET_JWT);
             (req as any).userId = payload.userId;
+            const user = await User.findById(req.userId);
+            res.send({ user });
 
         } catch (err) {
+
             res.send({ user: null });
             return;
         }
-
-        const user = await User.findById(req.userId);
-
-        res.send({ user });
 
     });
 

@@ -10,11 +10,14 @@ export const isAuth: RequestHandler<{}, any, any, {}> = async (req, _res, next) 
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
+
         throw new Error("Not Authenticated!");
     }
 
     const token = authHeader.split(" ")[1];
+
     if (!token) {
+
         throw new Error("Not Authenticated!");
     }
 
@@ -26,7 +29,9 @@ export const isAuth: RequestHandler<{}, any, any, {}> = async (req, _res, next) 
         (req as any).user = user;
         next();
 
-    } catch (err) {
+    }
+    catch (err) {
+        console.log("ERRR: " + err);
         throw new Error("Not Authenticated!");
     }
 

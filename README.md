@@ -1,4 +1,4 @@
-# Avalon README
+# Avalon
 
 A Vs code extension to assign tasks to members of a club/chapter
 

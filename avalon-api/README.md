@@ -24,7 +24,9 @@
 - [x] POST admin/task/:room_id/:user_id admins posts tasks to members// content: Task
 - [x] DELETE admin/task/:room_id/:user_id deletes/removes the task
 
-- Get /admin/:roomId/:userId the specific students tasks(for admin) (**Important**)
+- [x] Get /admin/:roomId/:userId the specific students tasks(for admin) (**Important**)
+
+- [x] DELETE /admin/:room_id/:user_id Admin should be able to kick members
 
 #### To do
 - [x] Create all the routes

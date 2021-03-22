@@ -5,6 +5,8 @@ import Room from "../models/Room";
 
 const admin = Router();
 
+// This route is tested and it works properly
+
 // Get all rooms created
 admin.get("/crooms", async (req: any, res) => {
 
@@ -14,6 +16,7 @@ admin.get("/crooms", async (req: any, res) => {
 
 });
 
+//  Gets members in the room
 admin.get("/:roomId", async (req: any, res) => {
 
     Room.findById(req.params.roomId)
@@ -30,7 +33,6 @@ admin.get("/:roomId", async (req: any, res) => {
 
 });
 
-// Work on Progress
 // Creating tasks for other users
 admin.post('/task/:roomId/:userId', async (req: any, res) => {
     // const task = await (await Task.create(req.body)).save();
@@ -57,6 +59,18 @@ admin.post('/task/:roomId/:userId', async (req: any, res) => {
     res.send({ task });
 });
 
+// Get all the tasks assigned to the user
+
+admin.get("/:roomId/:userId", async (req: any, res) => {
+
+    // array of tasks
+    const tasks = await Task.find({ room: req.params.roomId, user: req.params.userId });
+
+    res.send({ tasks });
+
+});
+
+// Deletes tasks for other users
 admin.delete("/task/:taskId", async (req: any, res) => {
 
     await Task.findByIdAndDelete(req.params.taskId);
@@ -65,5 +79,32 @@ admin.delete("/task/:taskId", async (req: any, res) => {
 
 });
 
+
+admin.delete("/:roomId/:userId", async (req: any, res) => {
+
+    try {
+        const room = await Room.findById(req.params.roomId);
+
+        if (!room) {
+            res.send({ msg: "Invalid room", msgError: true });
+        } else {
+            // eslint-disable-next-line eqeqeq
+            room.members = room.members.filter(r => r != req.params.userId);
+
+            room.save((err) => {
+                if (err) {
+                    res.send({ msg: "Some error occured", msgError: true });
+                }
+                else {
+                    res.send({ room, msgError: false });
+                }
+            });
+        }
+
+    } catch (err) {
+        res.send({ msg: "Invalid room", msgError: true });
+    }
+
+});
 
 export default admin;

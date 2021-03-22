@@ -4,7 +4,7 @@ import { model, Schema, Document, Types } from 'mongoose';
 
 export interface UserInterface extends Document {
     githubId: string | null;
-    name: string;
+    name: string | undefined;
     tasks: Array<Types.ObjectId | null>;
     rooms: Array<Types.ObjectId | null>;
     createdRooms: Array<Types.ObjectId | null>;

@@ -10,11 +10,12 @@ const room = Router();
 // Creating a room
 room.post('/', async (req: any, res) => {
 
-    const { name } = req.body;
+    const { name, description } = req.body;
 
     const window = {
         admin: [req.userId],
-        name
+        name,
+        description
     };
 
     const room = await (await Room.create(window)).save();

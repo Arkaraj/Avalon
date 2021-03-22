@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type { User } from "../types";
-    import Task from "./Task.svelte";
+    import Dashboard from "./Dashboard.svelte";
 
     let accessToken = "";
     let user: User | null = null;
@@ -38,7 +38,8 @@
     <div>Loading...</div>
 {:else if user}
     <!-- <pre>{JSON.stringify(user,null,2)}</pre> -->
-    <Task {user} />
+    <Dashboard {user} {accessToken} />
+
     <!-- <div>Hello {user.name}</div> -->
 
     <button
@@ -49,6 +50,7 @@
         }}>Logout</button
     >
 {:else}
+    <div>You are Logged out!</div>
     <button
         on:click={() => {
             tsvscode.postMessage({ type: "authenticate", value: undefined });

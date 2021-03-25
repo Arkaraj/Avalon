@@ -8,6 +8,8 @@
     export let user: User;
     export let accessToken: string;
 
+    let createRooms: Array<{ name: string; description: string }> = [];
+
     let isloading = true;
     let rooms: Array<{
         _id: string;
@@ -31,7 +33,7 @@
         // console.log(data);
         rooms = data.rooms;
         admin = data.admin;
-        console.log(admin.length);
+
         isloading = false;
     });
 </script>
@@ -44,12 +46,26 @@
     <p>You have not created any Rooms yet!</p>
 {:else}
     {#each admin as admin (admin.code)}
-        <div>
-            <p>{admin.name}</p>
-            <p>{admin.code}</p>
-        </div>
+        <blockquote class="cards">
+            <div class="header">
+                <p class="heading">{admin.name}</p>
+                <p class="code">{admin.code}</p>
+            </div>
+            <div>
+                {admin.description}
+            </div>
+        </blockquote>
     {/each}
 {/if}
+
+<!-- svelte-ignore missing-declaration -->
+<button
+    on:click={() => {
+        tsvscode.postMessage({ type: "createRoom", value: accessToken });
+    }}
+>
+    Create a Room
+</button>
 
 <h3>Rooms:</h3>
 
@@ -57,11 +73,22 @@
     <p>You have not joined any Room yet!</p>
 {:else}
     {#each rooms as room (room.code)}
-        <div>
-            {room.name}
-        </div>
+        <blockquote>
+            <div class="cards">
+                <p class="heading">{room.name}</p>
+                <p>{room.description}</p>
+            </div>
+        </blockquote>
     {/each}
 {/if}
+
+<button
+    on:click={() => {
+        tsvscode.postMessage({ type: "joinRoom", value: accessToken });
+    }}
+>
+    Join a Room
+</button>
 
 <form
     on:submit|preventDefault={() => {

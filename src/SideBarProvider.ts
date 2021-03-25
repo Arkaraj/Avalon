@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { authenticate } from "./authenticate";
 import { getNonce } from "./getNonce";
+import { createRoom, joinRoom } from "./services";
 import { TokenManager } from "./TokenManager";
 
 
@@ -51,6 +52,21 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                         return;
                     }
                     vscode.window.showErrorMessage(data.value);
+                    break;
+                }
+                case "createRoom": {
+                    // vscode.window.showInformationMessage("Create room");
+                    const name = await vscode.window.showInputBox({ placeHolder: "Enter Name of the Room", prompt: "Enter The name of the Room" });
+                    const description = await vscode.window.showInputBox({ placeHolder: "Enter Description", prompt: "Enter a brief description about the Room" });
+                    createRoom({ name, description }, data.value);
+                    break;
+                }
+                case "joinRoom": {
+                    // vscode.window.showInformationMessage("Create room");
+                    const code = await vscode.window.showInputBox({ placeHolder: "Enter Code of the Room you want to join", prompt: "Enter The code of the Room" });
+
+                    // createRoom({ name, description }, data.value);
+                    joinRoom({ code }, data.value);
                     break;
                 }
 

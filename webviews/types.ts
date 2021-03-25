@@ -4,3 +4,8 @@ export type User = {
     githubID: string;
     tasks: Array<string>;
 };
+
+export type RoomDetail = {
+    name: string | undefined;
+    description: string | undefined;
+};

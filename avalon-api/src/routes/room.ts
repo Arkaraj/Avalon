@@ -12,20 +12,33 @@ room.post('/', async (req: any, res) => {
 
     const { name, description } = req.body;
 
-    const window = {
-        admin: [req.userId],
-        name,
-        description
-    };
+    if (!name || !description) {
+        res.send({ msg: "Please Enter the Name and Description", msgError: true });
+    }
 
-    const room = await (await Room.create(window)).save();
+    else {
+        const window = {
+            admin: [req.userId],
+            name,
+            description
+        };
+
+        const room = await (await Room.create(window)).save(err => {
+            if (err) {
+                console.log("ERROR: " + err);
+                res.send({ msg: "Some Internal error occured", msgError: true });
+            }
+            else {
+                res.send({ msg: "Some error occured", msgError: false, room });
+            }
+        });
+    }
     // const user = await User.findById(req.userId);
 
     // user?.createdRooms.push(room._id);
 
     // user?.save();
 
-    res.send({ room });
 });
 
 // joining a room

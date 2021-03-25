@@ -29,7 +29,7 @@ export const authenticate = (cb: () => void) => {
         }
         else {
 
-            vscode.commands.executeCommand("vscode.open", vscode.Uri.parse(`${apiBaseUrl}auth/github`));
+            vscode.commands.executeCommand("vscode.open", vscode.Uri.parse(`${apiBaseUrl}/auth/github`));
         }
     });
 

@@ -93,3 +93,25 @@ textarea::placeholder {
 .textlink {
 	color: var(--vscode-textLink-foreground);
 }
+
+blockquote {
+	margin-left: 0;
+	width: 100%;
+}
+
+.heading {
+	color: var(--vscode-descriptionForeground);
+	cursor: pointer;
+}
+.cards{
+	padding: 1rem;
+}
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.code {
+	color: var(--vscode-textLink-foreground);
+}

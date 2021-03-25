@@ -6,7 +6,7 @@
 
 - [x] GET /room gets all rooms(where user is a member) of a user
 - [x] GET /croom gets all rooms created by the user
-- [x] POST /room creates a room for the user// content: name
+- [x] POST /room creates a room for the user// content: name, description
 - [x] DELETE /room/:roomId user leaves the room
 
 ### Join

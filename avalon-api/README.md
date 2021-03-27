@@ -27,11 +27,9 @@
 - [x] Get /admin/:roomId/:userId the specific students tasks(for admin) (**Important**)
 
 - [x] DELETE /admin/:room_id/:user_id Admin should be able to kick members
+- [x] DELETE /admin/:roomId Admin can dismantle the room
 
 #### To do
+
 - [x] Create all the routes
 - [ ] Connect it with Svelte, polka fetch
-
-
-
-

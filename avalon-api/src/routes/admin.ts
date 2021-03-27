@@ -2,6 +2,7 @@ import { Router } from "express";
 import User from "../models/User";
 import Task from "../models/Task";
 import Room from "../models/Room";
+import { isAdmin } from "../isAdmin";
 
 const admin = Router();
 
@@ -79,8 +80,15 @@ admin.delete("/task/:taskId", async (req: any, res) => {
 
 });
 
+admin.delete("/:roomId", isAdmin, async (req: any, res) => {
 
-admin.delete("/:roomId/:userId", async (req: any, res) => {
+    const room = await Room.findByIdAndDelete(req.params.roomId);
+    res.send({room, msgError: false});
+
+});
+
+
+admin.delete("/:roomId/:userId",isAdmin, async (req: any, res) => {
 
     try {
         const room = await Room.findById(req.params.roomId);

@@ -53,3 +53,27 @@ export const joinRoom = (code: { code: string | undefined } | undefined, token: 
         })
         ;
 };
+
+export const deleteRoom = (roomId: string, token: any) => {
+
+    fetch(`${apiBaseUrl}/admin/${roomId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.msgError) {
+                console.log(data.room);
+                vscode.window.showInformationMessage(`Deleted Room: ${data.room.name}`);
+            }
+            else {
+                vscode.window.showErrorMessage(data.msg);
+            }
+
+        })
+        ;
+
+};

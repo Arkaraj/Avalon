@@ -5,12 +5,16 @@ import { authenticate } from './authenticate';
 import { HelloWorldPanel } from './HelloWorldPanel';
 import { SidebarProvider } from './sidebarProvider';
 import { TokenManager } from './TokenManager';
+import { DepNodeProvider } from "./TreeDataProvider";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
 	TokenManager.globalState = context.globalState;
+
+	const nodeDependenciesProvider = new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/Kuebiko");
+	vscode.window.registerTreeDataProvider('Avalon', nodeDependenciesProvider);
 
 	// console.log("Token value is:", TokenManager.getToken());
 
@@ -23,6 +27,13 @@ export function activate(context: vscode.ExtensionContext) {
 			sidebarProvider
 		)
 	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('avalon.refreshRoom', () =>
+		nodeDependenciesProvider.refresh())	
+	);
+
+	context.subscriptions.push(vscode.window.createTreeView('Avalon', {treeDataProvider: new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/Kuebiko")}));
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('avalon.helloWorld', () => {

@@ -18,7 +18,7 @@ admin.get("/crooms", async (req: any, res) => {
 });
 
 //  Gets members in the room
-admin.get("/:roomId", async (req: any, res) => {
+admin.get("/:roomId",isAdmin, async (req: any, res) => {
 
     Room.findById(req.params.roomId)
         .populate("members").exec((err, document) => {
@@ -28,7 +28,7 @@ admin.get("/:roomId", async (req: any, res) => {
             else {
                 const members = document?.members;
 
-                res.send({ members });
+                res.send({ members, msgError:false });
             }
         });
 

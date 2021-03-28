@@ -2,6 +2,8 @@
 import fetch from "node-fetch";
 import * as vscode from "vscode";
 import { apiBaseUrl } from "./constant";
+import { DepNodeProvider } from "./TreeDataProvider";
+
 type RoomDetail = {
     name: string | undefined;
     description: string | undefined;
@@ -77,3 +79,39 @@ export const deleteRoom = (roomId: string, token: any) => {
         ;
 
 };
+
+export const roomMembers = (roomId: string, token: any) => {
+
+    fetch(`${apiBaseUrl}/admin/${roomId}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.msgError) {
+
+                // vscode.window.showInformationMessage(`Deleted Room: ${data.room.name}`);
+                // data.members => array
+
+	// vscode.window.registerTreeDataProvider('Avalon', new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando"));
+
+                console.log(data.members);
+                // vscode.window.createTreeView("Room name", {
+                //     treeDataProvider: new NodeDependenciesProvider(vscode.workspace.rootPath)
+                //   });
+                const view = vscode.window.createTreeView('Avalon', {treeDataProvider: new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando")});
+
+                // console.log(view.reveal());
+                
+            }
+            else {
+                vscode.window.showErrorMessage(data.msg);
+            }
+
+        })
+        ;
+
+};
+

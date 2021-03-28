@@ -35,9 +35,26 @@
           "name": "Avalon",
           "icon": "media/avalon.svg",
           "contextualTitle": "Avalon"
+        },
+        {
+          "id": "Avalon",
+          "name": "Rooms",
+          "icon": "media/refresh.svg"
         }
       ]
     },
+    "activationEvents": [
+      "onView: Avalon"
+],
+"menus": {
+  "view/title": [
+      {
+          "command": "avalon.refreshRoom",
+          "when": "view == avalon",
+          "group": "navigation"
+      }
+]
+},
     "commands": [
       {
         "command": "avalon.helloWorld",
@@ -57,6 +74,11 @@
         "command": "avalon.authenticate",
         "category": "Avalon",
         "title": "Authenticate"
+      },
+      {
+        "command": "avalon.refreshRoom",
+        "category": "Avalon",
+        "title": "Refresh"
       }
     ]
   },

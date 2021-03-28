@@ -48,7 +48,17 @@
   {#each admin as admin (admin.code)}
     <blockquote class="cards">
       <div class="header">
-        <p class="heading">{admin.name}</p>
+        <p
+          class="heading"
+          on:click={() => {
+            tsvscode.postMessage({
+              type: "showRoomMembers",
+              value: { roomId: admin._id, accessToken },
+            });
+          }}
+        >
+          {admin.name}
+        </p>
         <p class="code">{admin.code}</p>
       </div>
       <div>

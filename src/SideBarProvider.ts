@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { authenticate } from "./authenticate";
 import { getNonce } from "./getNonce";
-import { createRoom, deleteRoom, joinRoom } from "./services";
+import { createRoom, deleteRoom, joinRoom, roomMembers } from "./services";
 import { TokenManager } from "./TokenManager";
 
 
@@ -75,6 +75,15 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     // joinRoom({ code }, data.value);
 
                     deleteRoom(data.value.roomId, data.value.accessToken);
+                    break;
+                }
+                case "showRoomMembers": {
+                    // vscode.window.showInformationMessage("Create room");
+
+                    // joinRoom({ code }, data.value);
+
+                    // deleteRoom();
+                    roomMembers(data.value.roomId, data.value.accessToken);
                     break;
                 }
 

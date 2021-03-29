@@ -5,7 +5,7 @@ import User from "./models/User";
 
 export type RequestwithUserId = Request<{}, any, any, {}, Record<string, any>> & { userId: Types.ObjectId };
 
-export const isAuth: RequestHandler<{}, any, any, {}> = async (req, _res, next) => {
+export const isAuth: RequestHandler<{}, any, any, {}> = async (req, res, next) => {
 
     const authHeader = req.headers.authorization;
 
@@ -17,8 +17,8 @@ export const isAuth: RequestHandler<{}, any, any, {}> = async (req, _res, next) 
     const token = authHeader.split(" ")[1];
 
     if (!token) {
-
-        throw new Error("Not Authenticated!");
+        res.send({msgError: true, msg: "You are not Authenticated"});
+        // throw new Error("Not Authenticated!");
     }
 
     try {

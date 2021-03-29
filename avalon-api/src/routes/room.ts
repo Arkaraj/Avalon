@@ -23,15 +23,21 @@ room.post('/', async (req: any, res) => {
             description
         };
 
-        const room = await (await Room.create(window)).save(err => {
+        const room = await Room.create(window);
+        room.save(err => {
             if (err) {
                 console.log("ERROR: " + err);
                 res.send({ msg: "Some Internal error occured", msgError: true });
             }
             else {
-                res.send({ msg: "Some error occured", msgError: false, room });
+
+                res.send({ msgError: false, room });
             }
         });
+
+        // const room = await (await Room.create(window)).save(err => {
+            
+        // });
     }
     // const user = await User.findById(req.userId);
 

@@ -37,20 +37,20 @@
           "contextualTitle": "Avalon"
         },
         {
-          "id": "Avalon",
-          "name": "Rooms",
-          "icon": "media/refresh.svg"
+          "type": "webview",
+          "id": "Avalon-room",
+          "name": "Rooms"
         }
       ]
     },
     "activationEvents": [
       "onView: Avalon"
-],
-"menus": {
-  "view/title": [
+    ],
+    "menus": {
+      "view/title": [
       {
           "command": "avalon.refreshRoom",
-          "when": "view == avalon",
+          "when": "view == Avalon",
           "group": "navigation"
       }
 ]
@@ -78,7 +78,8 @@
       {
         "command": "avalon.refreshRoom",
         "category": "Avalon",
-        "title": "Refresh"
+        "title": "Refresh",
+        "icon": "media/refresh.svg"
       }
     ]
   },

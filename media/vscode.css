@@ -112,8 +112,16 @@ blockquote {
   justify-content: space-between;
 }
 
+.logout {
+  margin-top: 4rem;
+}
+
 .code {
   color: var(--vscode-textLink-foreground);
+}
+
+.icons {
+  color: var(--vscode-badge-background);
 }
 
 .round {

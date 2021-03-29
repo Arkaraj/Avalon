@@ -21,6 +21,7 @@ export const createRoom = (roomDetails: RoomDetail, token: any) => {
     })
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             if (!data.msgError) {
                 console.log(data.room);
                 vscode.window.showInformationMessage(`Room Created 🎉🎉, Room Code: ${data.room.code}`);

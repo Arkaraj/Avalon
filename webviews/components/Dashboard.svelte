@@ -1,6 +1,9 @@
 <script lang="ts">
   import type { User } from "../types";
   import { onMount } from "svelte";
+  import Admin from "./Admin.svelte";
+  import * as vscode from "vscode";
+  import { showInformationMessage } from "../global";
 
   export let user: User;
   export let accessToken: string;
@@ -20,7 +23,10 @@
     code: string;
     description: string;
   }> = [];
-  onMount(async () => {
+
+  let change: string = "change";
+
+  const getRooms = async () => {
     const response = await fetch("http://localhost:3000/room", {
       headers: {
         authorization: `Bearer ${accessToken}`,
@@ -32,7 +38,27 @@
     admin = data.admin;
 
     isloading = false;
+  };
+
+  onMount(async () => {
+    await getRooms();
   });
+
+  const deleteRoom = ({ detail: id }: any) => {
+    admin = admin.filter((room) => room._id !== id);
+  };
+
+  /*
+  admin = [
+      ...admin,
+      {
+        _id,
+        name: "Hello frnds",
+        description: "chai pelo",
+        code: "xjfk4l",
+      },
+    ];
+  */
 </script>
 
 <div>Welcome <span class="textlink">{user.name}</span></div>
@@ -43,40 +69,20 @@
   <p>You have not created any Rooms yet!</p>
 {:else}
   {#each admin as admin (admin.code)}
-    <blockquote class="cards">
-      <div class="header">
-        <p
-          class="heading"
-          on:click={() => {
-            tsvscode.postMessage({
-              type: "showRoomMembers",
-              value: { roomId: admin._id, accessToken },
-            });
-          }}
-        >
-          {admin.name}
-        </p>
-        <p class="code">{admin.code}</p>
-      </div>
-      <div>
-        {admin.description}
-        <!-- <button
-          on:click={() => {
-            tsvscode.postMessage({
-              type: "deleteRoom",
-              value: { roomId: admin._id, accessToken },
-            });
-          }}>Remove</button
-        > -->
-      </div>
-    </blockquote>
+    <!-- on:deleteRoom={deleteRoom} -->
+    <Admin {admin} {accessToken} />
   {/each}
 {/if}
 
+<!-- <pre>{JSON.stringify(admin,null,2)}</pre> -->
+
 <!-- svelte-ignore missing-declaration -->
 <button
-  on:click={() => {
+  on:click={async () => {
     tsvscode.postMessage({ type: "createRoom", value: accessToken });
+
+    // await getRooms();
+    vscode1.showInformationMessage("hello");
   }}
 >
   Create a Room

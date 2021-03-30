@@ -120,8 +120,16 @@ blockquote {
   color: var(--vscode-textLink-foreground);
 }
 
+.trash {
+  color: var(--vscode-textLink-foreground);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 .icons {
-  color: var(--vscode-badge-background);
+  /* color: var(--vscode-badge-background); */
+  cursor: pointer;
 }
 
 .round {

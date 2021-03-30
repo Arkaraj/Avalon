@@ -21,10 +21,11 @@ export const createRoom = (roomDetails: RoomDetail, token: any) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if (!data.msgError) {
-                console.log(data.room);
+                // console.log(data.room);
                 vscode.window.showInformationMessage(`Room Created 🎉🎉, Room Code: ${data.room.code}`);
+                // Refresh the webview
             }
             else {
                 vscode.window.showErrorMessage(data.msg);
@@ -99,10 +100,14 @@ export const roomMembers = (roomId: string, token: any) => {
 	// vscode.window.registerTreeDataProvider('Avalon', new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando"));
 
                 console.log(data.members);
+                // vscode.window.createWebviewPanel();
+                data.members.forEach((member: any) => {
+                    vscode.window.showInformationMessage(member.name);
+                });
                 // vscode.window.createTreeView("Room name", {
                 //     treeDataProvider: new NodeDependenciesProvider(vscode.workspace.rootPath)
                 //   });
-                const view = vscode.window.createTreeView('Avalon', {treeDataProvider: new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando")});
+                // const view = vscode.window.createTreeView('Avalon', {treeDataProvider: new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando")});
 
                 // console.log(view.reveal());
                 

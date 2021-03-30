@@ -78,7 +78,7 @@
       {
         "command": "avalon.refreshRoom",
         "category": "Avalon",
-        "title": "Refresh",
+        "title": "Refresh Rooms",
         "icon": "media/refresh.svg"
       }
     ]

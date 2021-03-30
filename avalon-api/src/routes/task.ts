@@ -22,7 +22,7 @@ task.get("/:roomId", async (req: any, res) => {
 // modify the task
 task.put("/:taskId", async (req: any, res) => {
 
-    const { completed } = req.body;
+    // const { completed } = req.body;
 
     try {
         const task = await Task.findById(req.params.taskId);
@@ -31,7 +31,7 @@ task.put("/:taskId", async (req: any, res) => {
             res.send({ msg: "Invalid room", msgError: true });
         } else {
 
-            task.completed = completed;
+            task.completed = !task.completed;
             task.save();
 
             res.send({ task, done: true });

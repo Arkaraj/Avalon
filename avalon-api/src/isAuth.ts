@@ -32,7 +32,8 @@ export const isAuth: RequestHandler<{}, any, any, {}> = async (req, res, next) =
     }
     catch (err) {
         console.log("ERRR: " + err);
-        throw new Error("Not Authenticated!");
+        res.send({msgError: true, msg: "You are not Authenticated"});
+        // throw new Error("Not Authenticated!");
     }
 
 

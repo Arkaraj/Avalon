@@ -59,6 +59,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     const name = await vscode.window.showInputBox({ placeHolder: "Enter Name of the Room", prompt: "Enter The name of the Room" });
                     const description = await vscode.window.showInputBox({ placeHolder: "Enter Description", prompt: "Enter a brief description about the Room" });
                     createRoom({ name, description }, data.value);
+                    // Refresh the webview
                     break;
                 }
                 case "joinRoom": {
@@ -67,6 +68,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
                     // createRoom({ name, description }, data.value);
                     joinRoom({ code }, data.value);
+                    // Refresh the webview
                     break;
                 }
                 case "deleteRoom": {
@@ -75,6 +77,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     // joinRoom({ code }, data.value);
 
                     deleteRoom(data.value.roomId, data.value.accessToken);
+                    // Refresh the webview
                     break;
                 }
                 case "showRoomMembers": {
@@ -130,7 +133,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
         <script nonce="${nonce}">
                 const tsvscode = acquireVsCodeApi();
-                
+                const vscode1 = vscode.window;
         </script>
 			</head>
       <body>

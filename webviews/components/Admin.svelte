@@ -1,10 +1,6 @@
 <script>
   export let admin;
   export let accessToken;
-
-  import { createEventDispatcher } from "svelte";
-
-  const dispatch = createEventDispatcher();
 </script>
 
 <blockquote class="cards">
@@ -26,6 +22,7 @@
   <div>
     {admin.description}
     <div class="trash">
+      <!-- svelte-ignore missing-declaration -->
       <svg
         class="icons"
         width="16"
@@ -33,12 +30,11 @@
         viewBox="0 0 16 16"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
-        on:click={() => {
+        on:click={async () => {
           tsvscode.postMessage({
             type: "deleteRoom",
             value: { roomId: admin._id, accessToken },
           });
-          dispatch("deleteRoom", admin._id);
         }}
         ><path
           fill-rule="evenodd"

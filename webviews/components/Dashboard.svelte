@@ -3,12 +3,12 @@
   import { onMount } from "svelte";
   import Admin from "./Admin.svelte";
   import * as vscode from "vscode";
-  import { showInformationMessage } from "../global";
+  import Room from "./Room.svelte";
 
   export let user: User;
   export let accessToken: string;
 
-  let createRooms: Array<{ name: string; description: string }> = [];
+  let createdRooms: Array<{ name: string; description: string }> = [];
 
   let isloading = true;
   let rooms: Array<{
@@ -23,9 +23,8 @@
     code: string;
     description: string;
   }> = [];
-
-  let change: string = "change";
-
+  let name = "";
+  let description = "";
   const getRooms = async () => {
     const response = await fetch("http://localhost:3000/room", {
       headers: {
@@ -44,21 +43,81 @@
     await getRooms();
   });
 
-  const deleteRoom = ({ detail: id }: any) => {
-    admin = admin.filter((room) => room._id !== id);
+  $: async () => {
+    admin = [...admin];
+    await getRooms();
+  };
+
+  const deleteRoom = async ({ detail: id }: any) => {
+    // admin = admin.filter((room) => room._id !== id);
+    await getRooms();
+  };
+
+  let rrrom: {
+    _id: string;
+    name: string;
+    code: string;
+    description: string;
+  } | null;
+
+  type RoomDetail = {
+    name: string | undefined;
+    description: string | undefined;
   };
 
   /*
-  admin = [
-      ...admin,
-      {
-        _id,
-        name: "Hello frnds",
-        description: "chai pelo",
-        code: "xjfk4l",
+  const createRoom = async (
+    roomDetails: RoomDetail
+  ): Promise<{
+    _id: string;
+    name: string;
+    code: string;
+    description: string;
+  } | null> => {
+    return fetch("http://localhost:3000/room", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
-    ];
+      body: JSON.stringify(roomDetails),
+    })
+      .then((res) => res.json())
+      .then(async (data) => {
+        // console.log(data);
+        if (!data.msgError) {
+          // console.log(data.room);
+          //   vscode.window.showInformationMessage(
+          //     `Room Created 🎉🎉, Room Code: ${data.room.code}`
+          //   );
+          return data.room;
+          // Refresh the webview
+        } else {
+          //   vscode.window.showErrorMessage(data.msg);
+          return null;
+        }
+      });
+  };
   */
+
+  window.addEventListener("message", async (e) => {
+    const message = e.data;
+
+    switch (message.type) {
+      case "createdRoom":
+        admin = [...admin, message.value];
+
+        break;
+
+      case "deleteRoom":
+        admin = admin.filter((room) => room._id !== message.value);
+        break;
+
+      case "joinRoom":
+        rooms = [...rooms, message.value];
+        break;
+    }
+  });
 </script>
 
 <div>Welcome <span class="textlink">{user.name}</span></div>
@@ -70,19 +129,37 @@
 {:else}
   {#each admin as admin (admin.code)}
     <!-- on:deleteRoom={deleteRoom} -->
-    <Admin {admin} {accessToken} />
+    <Admin {admin} {accessToken} on:deleteRoom={deleteRoom} />
   {/each}
 {/if}
 
 <!-- <pre>{JSON.stringify(admin,null,2)}</pre> -->
 
 <!-- svelte-ignore missing-declaration -->
-<button
-  on:click={async () => {
-    tsvscode.postMessage({ type: "createRoom", value: accessToken });
 
-    // await getRooms();
-    vscode1.showInformationMessage("hello");
+<!-- <form
+  on:submit|preventDefault={async () => {
+    rrrom = await createRoom({ name, description });
+    if (rrrom) {
+      admin = [
+        { _id: rrrom._id, name, description, code: rrrom.code },
+        ...admin,
+      ];
+    } else {
+    }
+    console.log(rrrom);
+    name = "";
+    description = "";
+  }}
+>
+  <input bind:value={name} />
+  <input bind:value={description} />
+  <button type="submit">submit</button>
+</form> -->
+
+<button
+  on:click={() => {
+    tsvscode.postMessage({ type: "createRoom", value: accessToken });
   }}
 >
   Create a Room

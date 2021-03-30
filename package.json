@@ -39,7 +39,8 @@
         {
           "type": "webview",
           "id": "Avalon-room",
-          "name": "Rooms"
+          "name": "Rooms",
+          "icon": "media/refresh.svg"
         }
       ]
     },

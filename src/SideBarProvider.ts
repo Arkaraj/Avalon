@@ -3,8 +3,6 @@ import { authenticate } from "./authenticate";
 import { getNonce } from "./getNonce";
 import { createRoom, deleteRoom, joinRoom, roomMembers } from "./services";
 import { TokenManager } from "./TokenManager";
-
-
 export class SidebarProvider implements vscode.WebviewViewProvider {
     _view?: vscode.WebviewView;
     _doc?: vscode.TextDocument;
@@ -20,6 +18,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
             localResourceRoots: [this._extensionUri],
         };
+        
 
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
 
@@ -58,8 +57,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     // vscode.window.showInformationMessage("Create room");
                     const name = await vscode.window.showInputBox({ placeHolder: "Enter Name of the Room", prompt: "Enter The name of the Room" });
                     const description = await vscode.window.showInputBox({ placeHolder: "Enter Description", prompt: "Enter a brief description about the Room" });
-                    createRoom({ name, description }, data.value);
+                    
+                    const room = await createRoom({ name, description }, data.value);
                     // Refresh the webview
+                    webviewView.webview.postMessage({ type: 'createdRoom', value: room });
+
                     break;
                 }
                 case "joinRoom": {
@@ -67,16 +69,37 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     const code = await vscode.window.showInputBox({ placeHolder: "Enter Code of the Room you want to join", prompt: "Enter The code of the Room" });
 
                     // createRoom({ name, description }, data.value);
-                    joinRoom({ code }, data.value);
+                    const room = await joinRoom({ code }, data.value);
                     // Refresh the webview
+
+                    if(room)
+                    {
+                        webviewView.webview.postMessage({ type: 'joinRoom', value: room});
+                    }
+                    else {
+                        
+                    }
+
                     break;
                 }
                 case "deleteRoom": {
                     // vscode.window.showInformationMessage("Create room");
 
                     // joinRoom({ code }, data.value);
+                    const answer = await vscode.window.showInformationMessage("Are you sure you want to delete this room, you can never restore it!", "Delete", "No");
 
-                    deleteRoom(data.value.roomId, data.value.accessToken);
+                    if(answer == "Delete")
+                    {
+                        deleteRoom(data.value.roomId, data.value.accessToken);
+                        // now render UI
+                        webviewView.webview.postMessage({ type: 'deleteRoom', value:  data.value.roomId});
+                    }
+                    else {
+                        vscode.window.showInformationMessage("Room was not removed");
+
+                    }
+
+                    
                     // Refresh the webview
                     break;
                 }
@@ -133,7 +156,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
         <script nonce="${nonce}">
                 const tsvscode = acquireVsCodeApi();
-                const vscode1 = vscode.window;
         </script>
 			</head>
       <body>

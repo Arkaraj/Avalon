@@ -9,53 +9,49 @@ type RoomDetail = {
     description: string | undefined;
 };
 
-export const createRoom = (roomDetails: RoomDetail, token: any) => {
+export const createRoom = async (roomDetails: RoomDetail, token: any) => {
 
-    fetch(`${apiBaseUrl}/room`, {
+    const res = await fetch(`${apiBaseUrl}/room`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(roomDetails)
-    })
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data);
-            if (!data.msgError) {
-                // console.log(data.room);
-                vscode.window.showInformationMessage(`Room Created 🎉🎉, Room Code: ${data.room.code}`);
-                // Refresh the webview
-            }
-            else {
-                vscode.window.showErrorMessage(data.msg);
-            }
-
-        })
-        ;
+    });
+    const data = await res.json();
+    // console.log(data);
+    if (!data.msgError) {
+        // console.log(data.room);
+        vscode.window.showInformationMessage(`Room Created 🎉🎉, Room Code: ${data.room.code}`);
+        // Refresh the webview
+        return data.room;
+    }
+    else {
+        vscode.window.showErrorMessage(data.msg);
+        return null;
+    }
 };
 
-export const joinRoom = (code: { code: string | undefined } | undefined, token: any) => {
-    fetch(`${apiBaseUrl}/join`, {
+export const joinRoom = async (code: { code: string | undefined } | undefined, token: any) => {
+    const res = await fetch(`${apiBaseUrl}/join`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(code)
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (!data.msgError) {
-                console.log(data.room);
-                vscode.window.showInformationMessage(`Joined Room 🎉🎉, Room Name: ${data.room.name}`);
-            }
-            else {
-                vscode.window.showErrorMessage(data.msg);
-            }
+    });
+    const data = await res.json();
+    if (!data.msgError) {
 
-        })
-        ;
+        vscode.window.showInformationMessage(`Joined Room 🎉🎉, Room Name: ${data.room.name}`);
+        return data.room;
+    }
+    else {
+        vscode.window.showErrorMessage(data.msg);
+        return null;
+    }
 };
 
 export const deleteRoom = (roomId: string, token: any) => {

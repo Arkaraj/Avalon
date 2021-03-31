@@ -50,7 +50,7 @@ export const joinRoom = async (code: { code: string | undefined } | undefined, t
     }
     else {
         vscode.window.showErrorMessage(data.msg);
-        return null;
+        return {};
     }
 };
 
@@ -77,6 +77,28 @@ export const deleteRoom = (roomId: string, token: any) => {
         ;
 
 };
+
+export const leaveRoom = async (roomId: string, token: any) => {
+    fetch(`${apiBaseUrl}/room/${roomId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.msgError) {
+                console.log(data.room);
+                vscode.window.showInformationMessage(`Left Room: ${data.room.name}`);
+            }
+            else {
+                vscode.window.showErrorMessage(data.msg);
+            }
+
+        })
+        ;
+}
 
 export const roomMembers = (roomId: string, token: any) => {
 

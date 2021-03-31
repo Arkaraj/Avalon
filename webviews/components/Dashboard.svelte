@@ -60,52 +60,15 @@
     description: string;
   } | null;
 
-  type RoomDetail = {
-    name: string | undefined;
-    description: string | undefined;
-  };
-
-  /*
-  const createRoom = async (
-    roomDetails: RoomDetail
-  ): Promise<{
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  } | null> => {
-    return fetch("http://localhost:3000/room", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(roomDetails),
-    })
-      .then((res) => res.json())
-      .then(async (data) => {
-        // console.log(data);
-        if (!data.msgError) {
-          // console.log(data.room);
-          //   vscode.window.showInformationMessage(
-          //     `Room Created 🎉🎉, Room Code: ${data.room.code}`
-          //   );
-          return data.room;
-          // Refresh the webview
-        } else {
-          //   vscode.window.showErrorMessage(data.msg);
-          return null;
-        }
-      });
-  };
-  */
-
   window.addEventListener("message", async (e) => {
     const message = e.data;
 
     switch (message.type) {
       case "createdRoom":
-        admin = [...admin, message.value];
+        if (message.value) {
+          admin = [...admin, message.value];
+        } else {
+        }
 
         break;
 
@@ -115,6 +78,10 @@
 
       case "joinRoom":
         rooms = [...rooms, message.value];
+        break;
+
+      case "leaveRoom":
+        rooms = rooms.filter((room) => room._id !== message.value);
         break;
     }
   });
@@ -170,13 +137,36 @@
 {#if rooms.length == 0}
   <p>You have not joined any Room yet!</p>
 {:else}
-  {#each rooms as room (room.code)}
+  {#each rooms as room (room._id)}
     <blockquote>
       <div class="cards">
         <p class="heading">{room.name}</p>
         <div>
           <div class="header">
             <p>{room.description}</p>
+
+            <div class="trash">
+              <svg
+                class="icons"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                on:click={async () => {
+                  tsvscode.postMessage({
+                    type: "leaveRoom",
+                    value: { roomId: room._id, accessToken },
+                  });
+                }}
+                ><path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M11.02 3.77v1.56l1-.99V2.5l-.5-.5h-9l-.5.5v.486L2 3v10.29l.36.46 5 1.72L8 15v-1h3.52l.5-.5v-1.81l-1-1V13H8V4.71l-.33-.46L4.036 3h6.984v.77zM7 14.28l-4-1.34V3.72l4 1.34v9.22zm6.52-5.8H8.55v-1h4.93l-1.6-1.6.71-.7 2.47 2.46v.71l-2.49 2.48-.7-.7 1.65-1.65z"
+                /></svg
+              >
+            </div>
+
             <!-- <button class="round"
               ><svg
                 width="16"

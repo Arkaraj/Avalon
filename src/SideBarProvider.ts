@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { authenticate } from "./authenticate";
 import { getNonce } from "./getNonce";
-import { createRoom, deleteRoom, joinRoom, roomMembers } from "./services";
+import { createRoom, deleteRoom, joinRoom, leaveRoom, roomMembers } from "./services";
 import { TokenManager } from "./TokenManager";
 export class SidebarProvider implements vscode.WebviewViewProvider {
     _view?: vscode.WebviewView;
@@ -101,6 +101,25 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
                     
                     // Refresh the webview
+                    break;
+                }
+                case "leaveRoom": {
+                    // vscode.window.showInformationMessage("Create room");
+
+                    // joinRoom({ code }, data.value);
+                    const answer = await vscode.window.showInformationMessage("Are you sure you want to leave this room", "Leave", "Stay");
+
+                    if(answer == "Leave")
+                    {
+                        leaveRoom(data.value.roomId, data.value.accessToken);
+                        // now render UI
+                        webviewView.webview.postMessage({ type: 'leaveRoom', value:  data.value.roomId});
+                    }
+                    else {
+                        vscode.window.showInformationMessage("Still in the Room");
+
+                    }
+
                     break;
                 }
                 case "showRoomMembers": {

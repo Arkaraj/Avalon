@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { authenticate } from './authenticate';
 import { HelloWorldPanel } from './HelloWorldPanel';
 import { RoomProvider } from './roomProvider';
+import { createRoom, joinRoom } from './services';
 import { SidebarProvider } from './sidebarProvider';
 import { TokenManager } from './TokenManager';
 // import { DepNodeProvider } from "./TreeDataProvider";
@@ -57,6 +58,35 @@ export function activate(context: vscode.ExtensionContext) {
 				authenticate(() => {
 
 				});
+			} catch (err) {
+				console.log(err);
+			}
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('avalon.createRoom', async () => {
+			try {
+				const name = await vscode.window.showInputBox({ placeHolder: "Enter Name of the Room", prompt: "Enter The name of the Room" });
+                    const description = await vscode.window.showInputBox({ placeHolder: "Enter Description", prompt: "Enter a brief description about the Room" });
+					const room = await createRoom({ name, description }, TokenManager.getToken());
+                    // Refresh the webview
+                    // webviewView.webview.postMessage({ type: 'createdRoom', value: room });
+			} catch (err) {
+				console.log(err);
+			}
+		})
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('avalon.joinRoom', async () => {
+			try {
+				
+				const code = await vscode.window.showInputBox({ placeHolder: "Enter Code of the Room you want to join", prompt: "Enter The code of the Room" });
+
+                    // createRoom({ name, description }, data.value);
+                    const room = await joinRoom({ code }, TokenManager.getToken());
+
 			} catch (err) {
 				console.log(err);
 			}

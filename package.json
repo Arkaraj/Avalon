@@ -14,6 +14,8 @@
     "onCommand:avalon.helloWorld",
     "onCommand:avalon.askQuestion",
     "onCommand:avalon.authenticate",
+    "onCommand:avalon.createRoom",
+    "onCommand:avalon.joinRoom",
     "onCommand:avalon.refreshWebViews"
   ],
   "main": "./dist/extension.js",
@@ -75,6 +77,16 @@
         "command": "avalon.authenticate",
         "category": "Avalon",
         "title": "Authenticate"
+      },
+      {
+        "command": "avalon.createRoom",
+        "category": "Avalon",
+        "title": "Create Room"
+      },
+      {
+        "command": "avalon.joinRoom",
+        "category": "Avalon",
+        "title": "Join Room"
       },
       {
         "command": "avalon.refreshRoom",

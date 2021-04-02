@@ -2,8 +2,11 @@
   import type { User } from "../types";
   import { onMount } from "svelte";
   import Admin from "./Admin.svelte";
-  import * as vscode from "vscode";
-  import Room from "./Room.svelte";
+  // import Task from "./Task.svelte";
+  // import Router from "svelte-routing/src/Router.svelte";
+  // import Link from "svelte-routing/src/Link.svelte";
+  // import Route from "svelte-routing/src/Route.svelte";
+  // import Home from "./Home.svelte";
 
   export let user: User;
   export let accessToken: string;
@@ -23,6 +26,7 @@
     code: string;
     description: string;
   }> = [];
+
   let name = "";
   let description = "";
   const getRooms = async () => {
@@ -43,22 +47,15 @@
     await getRooms();
   });
 
-  $: async () => {
-    admin = [...admin];
-    await getRooms();
-  };
+  // $: async () => {
+  //   admin = [...admin];
+  //   await getRooms();
+  // };
 
   const deleteRoom = async ({ detail: id }: any) => {
     // admin = admin.filter((room) => room._id !== id);
     await getRooms();
   };
-
-  let rrrom: {
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  } | null;
 
   window.addEventListener("message", async (e) => {
     const message = e.data;
@@ -89,7 +86,17 @@
 
 <div>Welcome <span class="textlink">{user.name}</span></div>
 
+<!-- <Router>
+  <Link to="/room">Go to Room</Link>
+  <Route path="/room" component={Home} />
+</Router> -->
+
 <h3>Admin:</h3>
+
+<!-- <Router>
+  <Link to="/x">Click this</Link>
+  <Route path="/x" component={Rr} />
+</Router> -->
 
 {#if admin.length == 0}
   <p>You have not created any Rooms yet!</p>
@@ -103,27 +110,6 @@
 <!-- <pre>{JSON.stringify(admin,null,2)}</pre> -->
 
 <!-- svelte-ignore missing-declaration -->
-
-<!-- <form
-  on:submit|preventDefault={async () => {
-    rrrom = await createRoom({ name, description });
-    if (rrrom) {
-      admin = [
-        { _id: rrrom._id, name, description, code: rrrom.code },
-        ...admin,
-      ];
-    } else {
-    }
-    console.log(rrrom);
-    name = "";
-    description = "";
-  }}
->
-  <input bind:value={name} />
-  <input bind:value={description} />
-  <button type="submit">submit</button>
-</form> -->
-
 <button
   on:click={() => {
     tsvscode.postMessage({ type: "createRoom", value: accessToken });
@@ -166,27 +152,14 @@
                 /></svg
               >
             </div>
-
-            <!-- <button class="round"
-              ><svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                ><path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M10.072 8.024L5.715 3.667l.618-.62L11 7.716v.618L6.333 13l-.618-.619 4.357-4.357z"
-                /></svg
-              ></button
-            > -->
           </div>
         </div>
       </div>
     </blockquote>
   {/each}
 {/if}
+
+<!-- <Task {accessToken} /> -->
 
 <button
   on:click={() => {

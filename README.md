@@ -18,23 +18,26 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+- `myExtension.enable`: enable/disable this extension
+- `myExtension.thing`: set to `blah` to do something
 
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
+- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
 
 ### For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
 
 ### Useful GitHub Repo
 
-https://github.com/microsoft/vscode-extension-samples 
+https://github.com/microsoft/vscode-extension-samples
+
+## TECH STACK
+
+- SVELTE
+- NODE.JS (TypeScript)
 
 ### Svelte
 

@@ -41,23 +41,25 @@
         {
           "type": "webview",
           "id": "Avalon-room",
-          "name": "Rooms",
-          "icon": "media/refresh.svg"
+          "name": "Rooms"
         }
       ]
     },
-    "activationEvents": [
-      "onView: Avalon"
-    ],
+    
     "menus": {
       "view/title": [
-      {
+        {
           "command": "avalon.refreshRoom",
-          "when": "view == Avalon",
-          "group": "navigation"
-      }
-]
-},
+          "group": "navigation",
+          "when": "view == Avalon-room"
+        },
+        {
+          "command": "avalon.createRoom",
+          "group": "navigation",
+          "when": "view == Avalon-sidebar"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "avalon.helloWorld",
@@ -81,7 +83,8 @@
       {
         "command": "avalon.createRoom",
         "category": "Avalon",
-        "title": "Create Room"
+        "title": "Create Room",
+        "icon": "$(add)"
       },
       {
         "command": "avalon.joinRoom",
@@ -92,7 +95,7 @@
         "command": "avalon.refreshRoom",
         "category": "Avalon",
         "title": "Refresh Rooms",
-        "icon": "media/refresh.svg"
+        "icon": "$(refresh)"
       }
     ]
   },
@@ -132,6 +135,7 @@
     "svelte": "^3.35.0",
     "svelte-check": "^1.2.3",
     "svelte-preprocess": "^4.6.9",
+    "svelte-routing": "^1.5.0",
     "ts-loader": "^8.0.14",
     "typescript": "^4.1.3",
     "vscode-test": "^1.5.0",

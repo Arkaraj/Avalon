@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import Router from "svelte-routing/src/Router.svelte";
   import type { User } from "../types";
   import Dashboard from "./Dashboard.svelte";
 
@@ -32,6 +33,8 @@
     tsvscode.postMessage({ type: "getToken", value: undefined });
   });
 </script>
+
+<Router />
 
 <!-- svelte-ignore missing-declaration -->
 {#if loading}

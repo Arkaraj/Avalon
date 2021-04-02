@@ -72,6 +72,7 @@ export function activate(context: vscode.ExtensionContext) {
 					const room = await createRoom({ name, description }, TokenManager.getToken());
                     // Refresh the webview
                     // webviewView.webview.postMessage({ type: 'createdRoom', value: room });
+					sidebarProvider._view?.webview.postMessage({ type: 'createdRoom', value: room });
 			} catch (err) {
 				console.log(err);
 			}
@@ -86,6 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                     // createRoom({ name, description }, data.value);
                     const room = await joinRoom({ code }, TokenManager.getToken());
+					sidebarProvider._view?.webview.postMessage({ type: 'joinRoom', value: room });
 
 			} catch (err) {
 				console.log(err);

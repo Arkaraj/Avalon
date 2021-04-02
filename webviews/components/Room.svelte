@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { RoomDetail } from "../types";
-
   let roomSelected: boolean = true;
   let room: RoomDetail;
   let admin: boolean = true;
   let text: string = "";
-  let todos: Array<{ text: string; completed: boolean }> = [];
+  let tasks: Array<{ text: string; completed: boolean }> = [];
 </script>
+
+<!-- Tasks -->
 
 {#if roomSelected}
   {#if admin}
@@ -24,7 +25,7 @@
       <h4>Enter The tasks :</h4>
       <form
         on:submit|preventDefault={() => {
-          todos = [{ text, completed: false }, ...todos];
+          tasks = [{ text, completed: false }, ...tasks];
           text = "";
         }}
       >
@@ -32,7 +33,7 @@
       </form>
 
       <ul>
-        {#each todos as todo (todo.text)}
+        {#each tasks as todo (todo.text)}
           <li class:strikeout={todo.completed}>
             <input
               type="checkbox"
@@ -45,6 +46,7 @@
           </li>
         {/each}
       </ul>
+      <!-- List of all the tasks -->
     </div>
   {:else}
     <p>Your tasks for this roomName is:</p>

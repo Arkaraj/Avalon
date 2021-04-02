@@ -71,7 +71,7 @@ const main = async () => {
             }
 
             // console.log(profile);
-            cb(null, { accessToken: jwt.sign({ userId: user?._id }, process.env.SECRET_JWT, { expiresIn: "3h" }) });
+            cb(null, { accessToken: jwt.sign({ userId: user?._id }, process.env.SECRET_JWT, { expiresIn: "30d" }) });
         }
     ));
 

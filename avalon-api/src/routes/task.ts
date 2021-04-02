@@ -5,7 +5,22 @@ const task = Router();
 
 // All the routes here is tested and it works
 
-// To get tasks of the pirticular room => student
+// To get all tasks of the pirticular user
+task.get("/", async (req: any, res) => {
+    // array of tasks
+    const roomTasks = await Task.find({ user: req.userId });
+
+    if (roomTasks.length == 0) {
+        res.send({ msg: "An error occured", msgError: true });
+    }
+    else {
+        res.send({ roomTasks,  msgError: false });
+    }
+
+});
+
+
+// To get tasks of the pirticular room => member
 task.get("/:roomId", async (req: any, res) => {
 
     // array of tasks

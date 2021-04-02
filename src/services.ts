@@ -50,7 +50,7 @@ export const joinRoom = async (code: { code: string | undefined } | undefined, t
     }
     else {
         vscode.window.showErrorMessage(data.msg);
-        return {};
+        return null;
     }
 };
 

@@ -1,8 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import Router from "svelte-routing/src/Router.svelte";
+  // import Router from "svelte-routing/src/Router.svelte";
+  // import Route from "svelte-routing/src/Route.svelte";
   import type { User } from "../types";
   import Dashboard from "./Dashboard.svelte";
+  // import Link from "svelte-routing/src/Link.svelte";
+  // import Room from "./Room.svelte";
 
   let accessToken = "";
   let user: User | null = null;
@@ -34,16 +37,23 @@
   });
 </script>
 
-<Router />
-
 <!-- svelte-ignore missing-declaration -->
 {#if loading}
   <div>Loading...</div>
 {:else if user}
   <!-- <pre>{JSON.stringify(user,null,2)}</pre> -->
-  <Dashboard {user} {accessToken} />
+  <!-- <Router>
+    <Link to="main">Go to DashBoard</Link>
+    <Route path="main">
+      <Dashboard {user} {accessToken} />
+    </Route>
 
-  <!-- <div>Hello {user.name}</div> -->
+    <Route path="room">
+      <Room />
+    </Route>
+    <Route />
+  </Router> -->
+  <Dashboard {user} {accessToken} />
   <div class="logout">
     <button
       on:click={() => {

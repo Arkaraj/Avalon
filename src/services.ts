@@ -112,13 +112,12 @@ export const roomMembers = (roomId: string, token: any) => {
         .then(data => {
             if (!data.msgError) {
 
-                // vscode.window.showInformationMessage(`Deleted Room: ${data.room.name}`);
-                // data.members => array
 
+            // data.members => array
 	// vscode.window.registerTreeDataProvider('Avalon', new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando"));
 
-                console.log(data.members);
-                // vscode.window.createWebviewPanel();
+                // console.log(data.members);
+
                 data.members.forEach((member: any) => {
                     vscode.window.showInformationMessage(member.name);
                 });
@@ -134,8 +133,7 @@ export const roomMembers = (roomId: string, token: any) => {
                 vscode.window.showErrorMessage(data.msg);
             }
 
-        })
-        ;
+        });
 
 };
 

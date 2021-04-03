@@ -16,7 +16,8 @@
     "onCommand:avalon.authenticate",
     "onCommand:avalon.createRoom",
     "onCommand:avalon.joinRoom",
-    "onCommand:avalon.refreshWebViews"
+    "onCommand:avalon.refreshWebViews",
+    "onView:Avalon-room"
   ],
   "main": "./dist/extension.js",
   "contributes": {

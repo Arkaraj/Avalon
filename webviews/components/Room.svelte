@@ -8,7 +8,6 @@
 </script>
 
 <!-- Tasks -->
-
 {#if roomSelected}
   {#if admin}
     <div class="header">

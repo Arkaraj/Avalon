@@ -1,6 +1,11 @@
 <script>
   export let admin;
   export let accessToken;
+  // import Router from "svelte-routing/src/Router.svelte";
+  // import Link from "svelte-routing/src/Link.svelte";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <blockquote class="cards">
@@ -9,10 +14,7 @@
     <p
       class="heading"
       on:click={() => {
-        tsvscode.postMessage({
-          type: "showRoomMembers",
-          value: { roomId: admin._id, accessToken },
-        });
+        dispatch("goToRoom", admin);
       }}
     >
       {admin.name}

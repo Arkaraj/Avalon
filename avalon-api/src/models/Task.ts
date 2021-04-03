@@ -4,7 +4,7 @@ import { model, Schema, Document, Types } from 'mongoose';
 interface ITask extends Document {
     text: string | null;
     completed: boolean;
-    rooms: Types.ObjectId | Record<string, unknown>;
+    room: Types.ObjectId | Record<string, unknown>;
     user: Types.ObjectId | Record<string, unknown>;
 }
 

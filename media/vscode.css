@@ -103,6 +103,10 @@ blockquote {
   color: var(--vscode-descriptionForeground);
   cursor: pointer;
 }
+
+.bold {
+  color: var(--vscode-descriptionForeground);
+}
 .cards {
   padding: 1rem;
 }
@@ -132,8 +136,6 @@ blockquote {
   cursor: pointer;
 }
 
-.round {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
+.link {
+  text-decoration: none;
 }

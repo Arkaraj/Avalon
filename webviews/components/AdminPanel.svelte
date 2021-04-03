@@ -11,6 +11,8 @@
   export let accessToken: string;
 
   let members: Array<User> = [];
+  let error: Boolean = false;
+  let msg: string = "";
 
   onMount(async () => {
     // tsvscode.postMessage({
@@ -26,18 +28,23 @@
     });
 
     const data = await response.json();
-    members = data.members;
+    if (data.msgError) {
+      members = [];
+      msg = data.msg;
+    } else {
+      members = data.members;
+    }
   });
 </script>
 
 <div class="header">
-  <p class="heading">{room.name}</p>
+  <p class="bold">{room.name}</p>
   <p class="code">Admin</p>
 </div>
-<p class="heading">Code: <span class="code">{room.code}</span></p>
+<p class="bold">Code: <span class="code">{room.code}</span></p>
 
 <div>
-  <p class="headin">Description:</p>
+  <p class="bold">Description:</p>
   <p>{room.description}</p>
 </div>
 
@@ -46,13 +53,19 @@
   <p>No Members in this Room, To get Members share the Room Code</p>
 {:else}
   <h4>Members of the room are:</h4>
-  {#each members as member (member._id)}
-    <ul>
-      <li><h3>{member.name}</h3></li>
-    </ul>
-    <!-- Show this on click like a drop down -->
-    <!-- {#each member.tasks as task (task._id)}
-      <h4>{task}</h4>
-    {/each} -->
-  {/each}
+  {#if !error}
+    {#each members as member (member._id)}
+      <ul>
+        <li>
+          <h3>{member.name}</h3>
+        </li>
+      </ul>
+      <!-- Show this on click like a drop down -->
+      <!-- {#each member.tasks as task (task._id)}
+    <h4>{task}</h4>
+  {/each} -->
+    {/each}
+  {:else}
+    <p>{msg}</p>
+  {/if}
 {/if}

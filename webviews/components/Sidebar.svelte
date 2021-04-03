@@ -11,6 +11,10 @@
   let user: User | null = null;
   let loading = true;
 
+  // $: {
+  //   tsvscode.setState({ accessToken });
+  // }
+
   onMount(async () => {
     window.addEventListener("message", async (e) => {
       const message = e.data;

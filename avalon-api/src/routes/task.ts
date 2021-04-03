@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Room from "../models/Room";
 import Task from "../models/Task";
 
 const task = Router();
@@ -25,12 +26,17 @@ task.get("/:roomId", async (req: any, res) => {
 
     // array of tasks
     const roomTasks = await Task.find({ room: req.params.roomId, user: req.userId });
-    if (roomTasks.length == 0) {
-        res.send({ msg: "An error occured", msgError: true });
-    }
-    else {
-        res.send({ roomTasks });
-    }
+
+    Room.findById(req.params.roomId).populate('admin').exec((err, document) => {
+        if(err)
+        {
+            res.send({ msg: "An error occured", msgError: true });
+        }
+        else {
+            const admin = document?.admin[0];
+            res.send({ roomTasks, admin, msgError: false });
+        }
+    });
 
 });
 

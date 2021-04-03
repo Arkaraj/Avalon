@@ -3,6 +3,7 @@
   import { onMount } from "svelte";
   import Admin from "./Admin.svelte";
   import AdminPanel from "./AdminPanel.svelte";
+  import TaskPanel from "./TaskPanel.svelte";
   // import Task from "./Task.svelte";
   // import Router from "svelte-routing/src/Router.svelte";
   // import Link from "svelte-routing/src/Link.svelte";
@@ -14,13 +15,20 @@
 
   let createdRooms: Array<{ name: string; description: string }> = [];
 
-  let page: "main" | "tasks" | "admin" = "main";
+  let page: "main" | "tasks" | "admin" = tsvscode.getState()?.page || "main";
+  // tsvscode.getState()?.page ||
   let rooms: Array<{
     _id: string;
     name: string;
     code: string;
     description: string;
   }> = [];
+  let roomData: {
+    _id: string;
+    name: string;
+    code: string;
+    description: string;
+  } | null = tsvscode.getState()?.roomData || null;
   let admin: Array<{
     _id: string;
     name: string;
@@ -33,7 +41,11 @@
     name: string;
     code: string;
     description: string;
-  };
+  } | null = tsvscode.getState()?.adminData || null;
+
+  $: {
+    tsvscode.setState({ page, roomData, adminData, accessToken });
+  }
 
   const getRooms = async () => {
     const response = await fetch("http://localhost:3000/room", {
@@ -54,6 +66,11 @@
   const changePage = ({ detail }: any) => {
     page = "admin";
     adminData = detail;
+  };
+
+  const assignTask = (room: typeof roomData) => {
+    roomData = room;
+    page = "tasks";
   };
 
   window.addEventListener("message", async (e) => {
@@ -121,12 +138,13 @@
     {#each rooms as room (room._id)}
       <blockquote>
         <div class="cards">
-          <p class="heading">{room.name}</p>
+          <p class="heading" on:click={() => assignTask(room)}>{room.name}</p>
           <div>
             <div class="header">
               <p>{room.description}</p>
 
               <div class="trash">
+                <!-- svelte-ignore missing-declaration -->
                 <svg
                   class="icons"
                   width="16"
@@ -165,12 +183,22 @@
     Join a Room
   </button>
 {:else if page === "tasks"}
-  <h2>holla</h2>
+  <button
+    on:click={() => {
+      page = "main";
+    }}>Back</button
+  >
+  <!-- svelte-ignore missing-declaration -->
+  <TaskPanel room={tsvscode.getState()?.roomData || roomData} {accessToken} />
 {:else if page === "admin"}
   <button
     on:click={() => {
       page = "main";
     }}>Back</button
   >
-  <AdminPanel room={adminData} {accessToken} />
+  <!-- svelte-ignore missing-declaration -->
+  <AdminPanel
+    room={tsvscode.getState()?.adminData || adminData}
+    {accessToken}
+  />
 {/if}

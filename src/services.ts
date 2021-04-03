@@ -98,42 +98,5 @@ export const leaveRoom = async (roomId: string, token: any) => {
 
         })
         ;
-}
-
-export const roomMembers = (roomId: string, token: any) => {
-
-    fetch(`${apiBaseUrl}/admin/${roomId}`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        },
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (!data.msgError) {
-
-
-            // data.members => array
-	// vscode.window.registerTreeDataProvider('Avalon', new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando"));
-
-                // console.log(data.members);
-
-                data.members.forEach((member: any) => {
-                    vscode.window.showInformationMessage(member.name);
-                });
-                // vscode.window.createTreeView("Room name", {
-                //     treeDataProvider: new NodeDependenciesProvider(vscode.workspace.rootPath)
-                //   });
-                // const view = vscode.window.createTreeView('Avalon', {treeDataProvider: new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/brando")});
-
-                // console.log(view.reveal());
-                
-            }
-            else {
-                vscode.window.showErrorMessage(data.msg);
-            }
-
-        });
-
 };
 

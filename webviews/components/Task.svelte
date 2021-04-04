@@ -1,13 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  export let accessToken: string;
+  let accessToken: string;
 
   let tasks: Array<{
     _id: string;
     text: string;
     completed: boolean;
-    room: string;
+    room: any;
     user: string;
   }> = [];
 
@@ -27,35 +27,42 @@
   };
 
   onMount(async () => {
-    await getTasks();
+    tsvscode.postMessage({ type: "getToken", value: null });
+  });
+
+  window.addEventListener("message", async (e) => {
+    const message = e.data;
+
+    switch (message.type) {
+      case "token":
+        accessToken = message.value;
+        await getTasks();
+        break;
+    }
   });
 </script>
 
 <h3>Tasks</h3>
 
 {#if tasks.length == 0}
-  <p>You don't have any Tasks yet!</p>
+  <p>You don't have any Tasks assigned yet!</p>
 {:else}
-  {#each tasks as task (task._id)}
-    <blockquote>
-      <div class="cards">
-        <li class:strikeout={task.completed}>
-          <input
-            type="checkbox"
-            checked={task.completed}
-            on:click={() => {
-              task.completed = !task.completed;
-            }}
-          />
-          {task.text}
-        </li>
-      </div>
-    </blockquote>
+  <p class="bold">Pending Tasks:</p>
+  {#each tasks.filter((t) => t.completed == false) as task (task._id)}
+    <div class="cards">
+      <li>
+        {task.text}
+      </li>
+      <div>Room: <span class="code">{task.room.name}</span></div>
+    </div>
+  {/each}
+  <p class="bold">Completed Tasks:</p>
+  {#each tasks.filter((t) => t.completed == true) as task (task._id)}
+    <div class="cards">
+      <li>
+        {task.text}
+      </li>
+      <div>Room: <span class="code">{task.room.name}</span></div>
+    </div>
   {/each}
 {/if}
-
-<style>
-  .strikeout {
-    text-decoration: line-through;
-  }
-</style>

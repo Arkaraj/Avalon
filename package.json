@@ -17,7 +17,7 @@
     "onCommand:avalon.createRoom",
     "onCommand:avalon.joinRoom",
     "onCommand:avalon.refreshWebViews",
-    "onView:Avalon-room"
+    "onView:Avalon-task"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -41,8 +41,8 @@
         },
         {
           "type": "webview",
-          "id": "Avalon-room",
-          "name": "Rooms"
+          "id": "Avalon-task",
+          "name": "Tasks"
         }
       ]
     },
@@ -50,9 +50,9 @@
     "menus": {
       "view/title": [
         {
-          "command": "avalon.refreshRoom",
+          "command": "avalon.refreshTask",
           "group": "navigation",
-          "when": "view == Avalon-room"
+          "when": "view == Avalon-task"
         },
         {
           "command": "avalon.createRoom",
@@ -93,9 +93,9 @@
         "title": "Join Room"
       },
       {
-        "command": "avalon.refreshRoom",
+        "command": "avalon.refreshTask",
         "category": "Avalon",
-        "title": "Refresh Rooms",
+        "title": "Refresh Tasks",
         "icon": "$(refresh)"
       }
     ]

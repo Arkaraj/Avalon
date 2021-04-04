@@ -9,14 +9,15 @@ const task = Router();
 // To get all tasks of the pirticular user
 task.get("/", async (req: any, res) => {
     // array of tasks
-    const roomTasks = await Task.find({ user: req.userId });
-
-    if (roomTasks.length == 0) {
-        res.send({ msg: "An error occured", msgError: true });
-    }
-    else {
-        res.send({ roomTasks,  msgError: false });
-    }
+    Task.find({ user: req.userId }).populate("room")
+    .exec((err, doc) => {
+        if(err) {
+            res.send({ msg: "An error occured", msgError: true });
+        }
+        else {
+            res.send({ roomTasks: doc,  msgError: false });
+        }
+    });
 
 });
 

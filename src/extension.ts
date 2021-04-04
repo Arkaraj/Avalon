@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import { authenticate } from './authenticate';
 import { HelloWorldPanel } from './HelloWorldPanel';
-import { RoomProvider } from './roomProvider';
+import { TaskProvider } from './taskProvider';
 import { createRoom, joinRoom } from './services';
 import { SidebarProvider } from './sidebarProvider';
 import { TokenManager } from './TokenManager';
@@ -30,11 +30,11 @@ export function activate(context: vscode.ExtensionContext) {
 		)
 	);
 
-	const roomProvider = new RoomProvider(context.extensionUri);
+	const taskProvider = new TaskProvider(context.extensionUri);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(
-			"Avalon-room", // Pass in the id
-			roomProvider
+			"Avalon-task", // Pass in the id
+			taskProvider
 		)
 	);
 
@@ -88,6 +88,23 @@ export function activate(context: vscode.ExtensionContext) {
                     // createRoom({ name, description }, data.value);
                     const room = await joinRoom({ code }, TokenManager.getToken());
 					sidebarProvider._view?.webview.postMessage({ type: 'joinRoom', value: room });
+
+			} catch (err) {
+				console.log(err);
+			}
+		})
+	);
+	// Needs to Refresh
+	context.subscriptions.push(
+		vscode.commands.registerCommand('avalon.refreshTask', async () => {
+			try {
+				if(taskProvider._view)
+				{
+					//taskProvider.revive(taskProvider._view);
+				}
+				else {
+
+				}
 
 			} catch (err) {
 				console.log(err);

@@ -1,11 +1,11 @@
 import * as vscode from "vscode";
 import { authenticate } from "./authenticate";
 import { getNonce } from "./getNonce";
-import { createRoom, deleteRoom, joinRoom, roomMembers } from "./services";
+// import { createRoom, deleteRoom, joinRoom } from "./services";
 import { TokenManager } from "./TokenManager";
 
 
-export class RoomProvider implements vscode.WebviewViewProvider {
+export class TaskProvider implements vscode.WebviewViewProvider {
     _view?: vscode.WebviewView;
     _doc?: vscode.TextDocument;
 
@@ -25,7 +25,10 @@ export class RoomProvider implements vscode.WebviewViewProvider {
 
         webviewView.webview.onDidReceiveMessage(async (data) => {
             switch (data.type) {
-
+                case "getToken": {
+                    webviewView.webview.postMessage({ type: 'token', value: TokenManager.getToken() });
+                    break;
+                }
             }       
         });
     }
@@ -43,10 +46,10 @@ export class RoomProvider implements vscode.WebviewViewProvider {
         );
 
         const scriptUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "out", "compiled/room.js")
+            vscode.Uri.joinPath(this._extensionUri, "out", "compiled/task.js")
         );
         const styleMainUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "out", "compiled/room.css")
+            vscode.Uri.joinPath(this._extensionUri, "out", "compiled/task.css")
         );
 
         // Use a nonce to only allow a specific script to be run.

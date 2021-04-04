@@ -23,7 +23,7 @@
 
 - [x] GET admin/:room_id gets all members in the room with there tasks of that room
 - [x] POST admin/task/:room_id/:user_id admins posts tasks to members// content: Task
-- [x] DELETE admin/task/:room_id/:user_id deletes/removes the task
+- [x] DELETE admin/task/:taskId deletes/removes the task
 
 - [x] Get /admin/:roomId/:userId the specific students tasks(for admin) (**Important**)
 

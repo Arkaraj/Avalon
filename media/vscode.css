@@ -139,3 +139,11 @@ blockquote {
 .link {
   text-decoration: none;
 }
+
+.tasks {
+  word-wrap: break-word;
+}
+
+.strikeout {
+  text-decoration: line-through;
+}

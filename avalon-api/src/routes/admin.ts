@@ -21,12 +21,14 @@ admin.get("/crooms", async (req: any, res) => {
 admin.get("/:roomId",isAdmin, async (req: any, res) => {
 
     Room.findById(req.params.roomId)
-        .populate("members").exec((err, document) => {
+        .populate("members").exec(async (err, document) => {
             if (err) {
                 res.send({ msg: "Internal Error", msgError: true });
             }
             else {
-                const members = document?.members;
+                // const members  = document?.members;
+                // const members = await document?.populate("tasks").execPopulate();
+                const members  = document?.members;
 
                 res.send({ members, msgError:false });
             }
@@ -65,7 +67,9 @@ admin.post('/task/:roomId/:userId', async (req: any, res) => {
 admin.get("/:roomId/:userId", async (req: any, res) => {
 
     // array of tasks
-    const tasks = await Task.find({ room: req.params.roomId, user: req.params.userId });
+    const tasks = await Task.find({ room: req.params.roomId, user: req.params.userId }).sort({
+        _id: "desc"
+    });
 
     res.send({ tasks });
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import type { Room } from "../types";
 
   let accessToken: string;
 
@@ -7,7 +8,7 @@
     _id: string;
     text: string;
     completed: boolean;
-    room: any;
+    room: Room;
     user: string;
   }> = [];
 

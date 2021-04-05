@@ -120,4 +120,27 @@ export const kickFromRoom = async (userId: string,roomId:string, token: any) => 
         ;
 };
 
+export const addAdmin = async (githubId:{githubId: string},roomId:string, token: any) => {
+    const res = await fetch(`${apiBaseUrl}/admin/addAdmins/${roomId}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(githubId)
+    });
+
+    const data = await res.json();
+
+    if (!data.msgError) {
+        vscode.window.showInformationMessage(`Added ${data.user.name} as admin to room: ${data.room.name}` );
+        return data;
+    }
+    else {
+        vscode.window.showErrorMessage(data.msg);
+        return null;
+    }
+
+};
+
 

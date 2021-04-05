@@ -91,6 +91,46 @@ admin.delete("/:roomId", isAdmin, async (req: any, res) => {
 
 });
 
+admin.post("/addAdmins/:roomId", isAdmin, async (req:any, res) => {
+
+    const {githubId} = req.body;
+
+    try {
+        const user = await User.findOne({githubId});
+
+        if(user)
+        {
+            const room = await Room.findById(req.params.roomId);
+
+        if(room?.admin.includes(user?._id))
+        {
+            res.send({ msg: "User is already the Admin of the room", msgError: true });
+        }
+        else{
+
+            room?.admin.push(user?._id);
+            room?.save(err => {
+            if(err)
+            {
+                res.send({ msg: "Internal Error", msgError: true });
+            }
+            else {
+                res.send({user, room, msgError: false});
+            }
+        });
+
+        }
+        }
+        else {
+            res.send({ msg: "Enter valid User GitHub Id", msgError: true });
+        }
+
+    } catch (err) {
+        res.send({ msg: "Enter valid User GitHub Id", msgError: true });
+    }
+
+});
+
 
 admin.delete("/:roomId/:userId",isAdmin, async (req: any, res) => {
 

@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { authenticate } from "./authenticate";
 import { getNonce } from "./getNonce";
-import { createRoom, deleteRoom, joinRoom, kickFromRoom, leaveRoom } from "./services";
+import { addAdmin, createRoom, deleteRoom, joinRoom, kickFromRoom, leaveRoom } from "./services";
 import { TokenManager } from "./TokenManager";
 export class SidebarProvider implements vscode.WebviewViewProvider {
     _view?: vscode.WebviewView;
@@ -98,9 +98,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                         vscode.window.showInformationMessage("Room was not removed");
 
                     }
-
-                    
-                    // Refresh the webview
                     break;
                 }
                 case "leaveRoom": {
@@ -123,9 +120,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     break;
                 }
                 case "removeUser": {
-                    // vscode.window.showInformationMessage("Create room");
-
-                    // joinRoom({ code }, data.value);
+                   
                     const answer = await vscode.window.showInformationMessage("Are you sure you want to remove this user?", "Remove", "Keep");
 
                     if(answer == "Remove")
@@ -139,6 +134,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
                     }
 
+                    break;
+                }
+                case "addAdmin": {
+
+                    const githubId = await vscode.window.showInputBox({ placeHolder: "Enter GitHub Id of the User you want to make Admin", prompt: "Enter The GitHub Id of the User" });
+                    
+                    if(githubId)
+                    {
+                        await addAdmin({githubId},data.value.roomId,data.value.accessToken);
+                    }
+                    else {
+
+                    }
                     break;
                 }
             }

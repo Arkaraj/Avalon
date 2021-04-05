@@ -23,6 +23,7 @@
 - [x] DELETE admin/task/:taskId deletes/removes the task
 
 - [x] Get /admin/:roomId/:userId the specific students tasks(for admin) (**Important**)
+- [x] POST /admin/addAdmins/:roomId adds new admins by their githubIds
 
 - [x] DELETE /admin/:room_id/:user_id Admin should be able to kick members
 - [x] DELETE /admin/:roomId Admin can dismantle the room

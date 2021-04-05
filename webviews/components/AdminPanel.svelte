@@ -96,6 +96,14 @@
   <p class="bold">{room.name}</p>
   <p class="code">Admin</p>
 </div>
+<button
+  on:click={() => {
+    tsvscode.postMessage({
+      type: "addAdmin",
+      value: { accessToken: accessToken, roomId: room._id },
+    });
+  }}>Add Admin</button
+>
 <p class="bold">Code: <span class="code">{room.code}</span></p>
 
 <div>

@@ -35,6 +35,25 @@
       adminName = admin.name;
     }
   });
+
+  const taskCompleted = async (taskId: string) => {
+    const response = await fetch(`http://localhost:3000/task/${taskId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.msgError) {
+      error = true;
+      msg = data.msg;
+      return;
+    } else {
+      // updated the task
+    }
+  };
 </script>
 
 <div class="header">
@@ -62,8 +81,9 @@
           <input
             type="checkbox"
             checked={task.completed}
-            on:click={() => {
+            on:click={async () => {
               task.completed = !task.completed;
+              await taskCompleted(task._id);
             }}
           />
           {task.text}

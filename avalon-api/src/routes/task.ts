@@ -54,9 +54,9 @@ task.put("/:taskId", async (req: any, res) => {
         } else {
 
             task.completed = !task.completed;
-            task.save();
+            await task.save();
 
-            res.send({ task, done: true });
+            res.send({ task, msgError: false });
         }
 
     } catch (err) {

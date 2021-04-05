@@ -49,6 +49,9 @@
   <p>You don't have any Tasks assigned yet!</p>
 {:else}
   <p class="bold">Pending Tasks:</p>
+  {#if tasks.filter((t) => t.completed == false).length == 0}
+    <p>You have no tasks left 🚀</p>
+  {/if}
   {#each tasks.filter((t) => t.completed == false) as task (task._id)}
     <div class="cards">
       <li>

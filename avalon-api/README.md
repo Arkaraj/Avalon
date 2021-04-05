@@ -17,7 +17,7 @@
 
 - [x] GET /task/ gets tasks of a pirticular user
 - [x] GET /task/:room_id gets tasks of the pirticular room
-- [x] PUT /task/:room_id updates the tasks// content: {completed: true}
+- [x] PUT /task/:task_id updates the tasks// content: {completed: true}
 
 ### Admins
 

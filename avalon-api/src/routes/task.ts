@@ -34,7 +34,7 @@ task.get("/:roomId", async (req: any, res) => {
             res.send({ msg: "An error occured", msgError: true });
         }
         else {
-            const admin = document?.admin[0];
+            const admin = document?.admin;
             res.send({ roomTasks, admin, msgError: false });
         }
     });

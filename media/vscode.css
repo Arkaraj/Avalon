@@ -130,10 +130,38 @@ blockquote {
   flex-direction: row;
   justify-content: flex-end;
 }
+.side {
+  color: var(--vscode-textLink-foreground);
+  float: right;
+}
+
+.adminName {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
 .icons {
   /* color: var(--vscode-badge-background); */
   cursor: pointer;
+}
+.closeIcons {
+  /* color: var(--vscode-inputValidation-errorForeground); */
+  color: var(--vscode-testing-iconErrored);
+  cursor: pointer;
+}
+.icons2 {
+  color: var(--vscode-badge-background);
+  cursor: pointer;
+}
+
+.memberCard {
+  margin: 1rem 0;
+  color: var(--vscode-descriptionForeground);
+}
+
+.taskCard {
+  padding-top: 1rem;
 }
 
 .link {
@@ -142,6 +170,12 @@ blockquote {
 
 .tasks {
   word-wrap: break-word;
+}
+
+.taskView {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
 }
 
 .strikeout {

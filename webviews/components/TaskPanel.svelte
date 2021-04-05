@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { Task } from "../types";
+  import type { Task, User } from "../types";
 
   export let room: {
     _id: string;
@@ -12,7 +12,7 @@
   export let accessToken: string;
 
   let tasks: Array<Task> = [];
-  let adminName: string = "";
+  let Admins: Array<User> = [];
   let error: Boolean = false;
   let msg: string = "";
   onMount(async () => {
@@ -32,7 +32,7 @@
       const { roomTasks, admin } = data;
 
       tasks = roomTasks;
-      adminName = admin.name;
+      Admins = admin;
     }
   });
 
@@ -64,7 +64,12 @@
 <div>
   <p class="bold">Description:</p>
   <p>{room.description}</p>
-  <p>{adminName} <span class="code">(Admin)</span></p>
+  {#each Admins as admin (admin._id)}
+    <div class="adminName">
+      <p class="bold">{admin.name}</p>
+      <span style="margin-left: 0.3rem" class="code">Admin</span>
+    </div>
+  {/each}
 </div>
 
 <h2 class="bold">Your Tasks:</h2>

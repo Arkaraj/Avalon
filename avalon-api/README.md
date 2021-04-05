@@ -8,9 +8,6 @@
 - [x] GET /croom gets all rooms created by the user
 - [x] POST /room creates a room for the user// content: name, description
 - [x] DELETE /room/:roomId user leaves the room
-
-### Join
-
 - [x] POST /join joins the room based on the nanoid code// content: code
 
 ### Task Routes
@@ -33,4 +30,4 @@
 #### To do
 
 - [x] Create all the routes
-- [ ] Connect it with Svelte, polka fetch
+- [x] Connect it with Svelte, polka, fetch

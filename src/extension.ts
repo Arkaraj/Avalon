@@ -94,13 +94,14 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		})
 	);
-	// Needs to Refresh
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('avalon.refreshTask', async () => {
 			try {
 				if(taskProvider._view)
 				{
 					//taskProvider.revive(taskProvider._view);
+					taskProvider.resolveWebviewView(taskProvider._view);
 				}
 				else {
 

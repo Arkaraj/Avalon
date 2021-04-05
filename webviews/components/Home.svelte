@@ -1,4 +1,4 @@
 <script lang="ts">
 </script>
 
-<h1>Home Page</h1>
+<h1>Avalon Instructions</h1>

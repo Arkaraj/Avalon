@@ -2,7 +2,6 @@
 import fetch from "node-fetch";
 import * as vscode from "vscode";
 import { apiBaseUrl } from "./constant";
-import { DepNodeProvider } from "./TreeDataProvider";
 
 type RoomDetail = {
     name: string | undefined;
@@ -66,7 +65,7 @@ export const deleteRoom = (roomId: string, token: any) => {
         .then(res => res.json())
         .then(data => {
             if (!data.msgError) {
-                console.log(data.room);
+                // console.log(data.room);
                 vscode.window.showInformationMessage(`Deleted Room: ${data.room.name}`);
             }
             else {
@@ -89,7 +88,7 @@ export const leaveRoom = async (roomId: string, token: any) => {
         .then(res => res.json())
         .then(data => {
             if (!data.msgError) {
-                console.log(data.room);
+                // console.log(data.room);
                 vscode.window.showInformationMessage(`Left Room: ${data.room.name}`);
             }
             else {
@@ -99,4 +98,26 @@ export const leaveRoom = async (roomId: string, token: any) => {
         })
         ;
 };
+
+export const kickFromRoom = async (userId: string,roomId:string, token: any) => {
+    fetch(`${apiBaseUrl}/admin/${roomId}/${userId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.msgError) {
+                vscode.window.showInformationMessage(`Removed User From: ${data.room.name}`);
+            }
+            else {
+                vscode.window.showErrorMessage(data.msg);
+            }
+
+        })
+        ;
+};
+
 

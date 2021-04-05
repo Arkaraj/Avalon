@@ -94,7 +94,7 @@ room.delete("/:roomId", async (req: any, res) => {
                 }
             });
         }
-
+        
     } catch (err) {
         res.send({ msg: "Invalid room", msgError: true });
     }

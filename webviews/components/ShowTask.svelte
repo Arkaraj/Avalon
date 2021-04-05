@@ -63,7 +63,7 @@
   };
 </script>
 
-<div class="taskCard">
+<div class="taskInput">
   <h4>Enter The tasks :</h4>
   <form on:submit|preventDefault={() => postTask(member._id)}>
     <input bind:value={text} />
@@ -82,14 +82,14 @@
   <p />
 {:else}
   {#each memberTasks as task (task._id)}
-    <ul class="">
+    <ul class="taskView">
       <li class="tasks">
         <span class:strikeout={task.completed}>{task.text}</span>
         {#if task.completed}
           <span class="code">(completed)</span>
         {/if}
       </li>
-      <div class="trash">
+      <div class="side">
         <svg
           class="icons"
           width="16"

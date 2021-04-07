@@ -11,12 +11,10 @@
   ],
   "activationEvents": [
     "onView:Avalon-sidebar",
-    "onCommand:avalon.helloWorld",
-    "onCommand:avalon.askQuestion",
+    "onCommand:avalon.documentation",
     "onCommand:avalon.authenticate",
     "onCommand:avalon.createRoom",
     "onCommand:avalon.joinRoom",
-    "onCommand:avalon.refreshWebViews",
     "onView:Avalon-task"
   ],
   "main": "./dist/extension.js",
@@ -63,18 +61,9 @@
     },
     "commands": [
       {
-        "command": "avalon.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "avalon.askQuestion",
+        "command": "avalon.documentation",
         "category": "Avalon",
-        "title": "Ask question"
-      },
-      {
-        "command": "avalon.refreshWebViews",
-        "category": "Avalon",
-        "title": "Refresh"
+        "title": "How to Use it?"
       },
       {
         "command": "avalon.authenticate",

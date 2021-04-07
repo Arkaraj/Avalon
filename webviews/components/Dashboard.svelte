@@ -13,8 +13,6 @@
   export let user: User;
   export let accessToken: string;
 
-  let createdRooms: Array<{ name: string; description: string }> = [];
-
   let page: "main" | "tasks" | "admin" = tsvscode.getState()?.page || "main";
   // tsvscode.getState()?.page ||
   let rooms: Array<{
@@ -96,6 +94,9 @@
       case "leaveRoom":
         rooms = rooms.filter((room) => room._id !== message.value);
         break;
+      case "leaveAdmin":
+        page = "main";
+        break;
     }
   });
 </script>
@@ -107,6 +108,7 @@
 
 {#if page === "main"}
   <div>Welcome <span class="textlink">{user.name}</span></div>
+  <div>GitHub Id: <span class="textlink">{user.githubId}</span></div>
 
   <h3>Admin:</h3>
 

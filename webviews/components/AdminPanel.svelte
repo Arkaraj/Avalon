@@ -16,7 +16,7 @@
   let msg: string = "";
   let visible: Boolean = false;
   let text: string = "";
-  let tasks: Array<{ text: string; completed: boolean }> = [];
+  // let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
   let memberTasks: Array<Task> = [];
 
   const getMembers = async () => {
@@ -96,15 +96,22 @@
   <p class="bold">{room.name}</p>
   <p class="code">Admin</p>
 </div>
-<button
-  on:click={() => {
-    tsvscode.postMessage({
-      type: "addAdmin",
-      value: { accessToken: accessToken, roomId: room._id },
-    });
-  }}>Add Admin</button
->
-<p class="bold">Code: <span class="code">{room.code}</span></p>
+<!-- svelte-ignore missing-declaration -->
+
+<div class="header">
+  <p class="bold">Code: <span class="code">{room.code}</span></p>
+  <h4
+    class="addAdmin"
+    on:click={() => {
+      tsvscode.postMessage({
+        type: "addAdmin",
+        value: { accessToken: accessToken, roomId: room._id },
+      });
+    }}
+  >
+    Add Admin
+  </h4>
+</div>
 
 <div>
   <p class="bold">Description:</p>
@@ -160,14 +167,7 @@
           </li>
           {#if visible}
             <div class="taskCard">
-              <ShowTask
-                {text}
-                {accessToken}
-                {tasks}
-                {memberTasks}
-                {member}
-                {room}
-              />
+              <ShowTask {text} {accessToken} {memberTasks} {member} {room} />
             </div>
           {/if}
         </ul>
@@ -181,3 +181,15 @@
     <p>{msg}</p>
   {/if}
 {/if}
+
+<!-- svelte-ignore missing-declaration -->
+<button
+  on:click={() => {
+    tsvscode.postMessage({
+      type: "leaveAdmin",
+      value: { accessToken: accessToken, roomId: room._id },
+    });
+  }}
+>
+  Leave Room
+</button>

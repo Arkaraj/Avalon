@@ -131,6 +131,42 @@ admin.post("/addAdmins/:roomId", isAdmin, async (req:any, res) => {
 
 });
 
+admin.delete("/leaveAdmin/:roomId", isAdmin, async (req: any, res) => {
+
+    try {
+        
+        const room = await Room.findById(req.params.roomId);
+
+        if(room?.admin)
+        {
+            // eslint-disable-next-line eqeqeq
+            room.admin = room.admin.filter(id => id != req.userId);
+
+            if(room.admin.length == 0)
+            {
+                res.send({ msg: `You are the only Admin of the Room: ${room.name}, You can't leave it!`, msgError: true });
+            }
+            else {
+                room.save(err => {
+                    if(err)
+                    {
+                        res.send({ msg: "Something went wrong", msgError: true });
+                    }
+                    else {
+                        res.send({ room, msgError: false});
+                    }
+                });
+            }
+        }
+        else {
+            res.send({ msg: "Something went wrong", msgError: true });
+        }
+
+    } catch (err) {
+        res.send({ msg: "Something went wrong", msgError: true });
+    }
+
+});
 
 admin.delete("/:roomId/:userId",isAdmin, async (req: any, res) => {
 

@@ -99,6 +99,10 @@ blockquote {
   width: 100%;
 }
 
+blockquote:hover {
+  background: var(--vscode-editor-selectionHighlightBackground);
+}
+
 .heading {
   color: var(--vscode-descriptionForeground);
   cursor: pointer;
@@ -151,7 +155,7 @@ blockquote {
   cursor: pointer;
 }
 .icons2 {
-  color: var(--vscode-badge-background);
+  color: var(--vscode-textLink-foreground);
   cursor: pointer;
 }
 
@@ -162,6 +166,15 @@ blockquote {
 
 .taskCard {
   padding-top: 1rem;
+}
+
+.addAdmin {
+  color: var(--vscode-textLink-foreground);
+  cursor: pointer;
+}
+
+.addAdmin:hover {
+  text-decoration: underline;
 }
 
 .link {

@@ -1,7 +1,7 @@
 export type User = {
     _id: string;
     name: string;
-    githubID: string;
+    githubId: string;
     tasks: Array<Task>;
 };
 

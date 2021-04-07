@@ -2,7 +2,6 @@
   import type { Task, User } from "../types";
 
   export let text: string;
-  export let tasks: Array<{ text: string; completed: boolean }>;
   export let memberTasks: Array<Task>;
   export let member: User;
   export let room: {
@@ -12,10 +11,11 @@
     description: string;
   };
   export let accessToken: string;
+  let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
 
   const postTask = async (userId: string) => {
     // For quick UI rendering
-    tasks = [{ text, completed: false }, ...tasks];
+    // tasks = [{ text, completed: false }, ...tasks];
 
     const todo = {
       text,
@@ -36,10 +36,14 @@
     const data = await response.json();
 
     // This Works
-    // tasks = [
-    //   { text: data.task.text, completed: data.task.completed },
-    //   ...tasks,
-    // ];
+    tasks = [
+      {
+        _id: data.task._id,
+        text: data.task.text,
+        completed: data.task.completed,
+      },
+      ...tasks,
+    ];
 
     text = "";
   };
@@ -58,6 +62,7 @@
     const data = await response.json();
     if (data.done) {
       memberTasks = memberTasks.filter((task) => task._id !== taskId);
+      tasks = tasks.filter((task) => task._id !== taskId);
     } else {
     }
   };
@@ -70,10 +75,30 @@
   </form>
 
   <ul>
-    {#each tasks as todo (todo.text)}
-      <li class="tasks">
-        {todo.text}
-      </li>
+    {#each tasks as todo (todo._id)}
+      <div class="taskView">
+        <li class="tasks">
+          <span>{todo.text}</span>
+        </li>
+        <div class="side">
+          <svg
+            class="icons"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            on:click={async () => {
+              await deleteTask(todo._id);
+            }}
+            ><path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M8 8.707l3.646 3.647.708-.707L8.707 8l3.647-3.646-.707-.708L8 7.293 4.354 3.646l-.707.708L7.293 8l-3.646 3.646.707.708L8 8.707z"
+            /></svg
+          >
+        </div>
+      </div>
     {/each}
   </ul>
   <!-- List of all the tasks -->

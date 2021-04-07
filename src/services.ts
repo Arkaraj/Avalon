@@ -142,5 +142,25 @@ export const addAdmin = async (githubId:{githubId: string},roomId:string, token:
     }
 
 };
+export const leaveAdmin = async (token: any, roomId:string) => {
+    const res = await fetch(`${apiBaseUrl}/admin/leaveAdmin/${roomId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+    });
+
+    const data = await res.json();
+
+    if (!data.msgError) {
+        vscode.window.showInformationMessage(`Left Room: ${data.room.name} successfully` );
+        return data;
+    }
+    else {
+        vscode.window.showErrorMessage(data.msg);
+        return null;
+    }
+
+};
 
 

@@ -7,7 +7,6 @@ import { TaskProvider } from './taskProvider';
 import { createRoom, joinRoom } from './services';
 import { SidebarProvider } from './sidebarProvider';
 import { TokenManager } from './TokenManager';
-// import { DepNodeProvider } from "./TreeDataProvider";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -15,12 +14,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 	TokenManager.globalState = context.globalState;
 
-	// const nodeDependenciesProvider = new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/Kuebiko");
-	// vscode.window.registerTreeDataProvider('Avalon', nodeDependenciesProvider);
+	const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
 
-	// console.log("Token value is:", TokenManager.getToken());
+			item.text = "$(check-all) Show Tasks";
 
-	// console.log('Congratulations, your extension "avalon" is now active!');
+			item.command = "Avalon-task.focus";
+
+			item.show();
 
 	const sidebarProvider = new SidebarProvider(context.extensionUri);
 	context.subscriptions.push(
@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// context.subscriptions.push(vscode.window.createTreeView('Avalon', {treeDataProvider: new DepNodeProvider("/Users/arkarajghosh/Desktop/App-Code/Kuebiko")}));
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('avalon.helloWorld', () => {
+		vscode.commands.registerCommand('avalon.documentation', () => {
 			// vscode.window.showInformationMessage('Hello World from Avalon!');
 			HelloWorldPanel.createOrShow(context.extensionUri);
 		})
@@ -102,6 +102,7 @@ export function activate(context: vscode.ExtensionContext) {
 				{
 					//taskProvider.revive(taskProvider._view);
 					taskProvider.resolveWebviewView(taskProvider._view);
+					// taskProvider.revive(taskProvider._view);
 				}
 				else {
 
@@ -113,27 +114,12 @@ export function activate(context: vscode.ExtensionContext) {
 		})
 	);
 
-	context.subscriptions.push(
-		vscode.commands.registerCommand('avalon.refreshWebViews', () => {
-			// vscode.window.showInformationMessage('Hello World from Avalon!');
-			HelloWorldPanel.kill();
-			HelloWorldPanel.createOrShow(context.extensionUri);
-		})
-	);
-
-	context.subscriptions.push(
-		vscode.commands.registerCommand('avalon.askQuestion', async () => {
-			const answer = await vscode.window.showInformationMessage('How, was your day?', "good", "bad");
-
-
-			if (answer === 'bad') {
-				vscode.window.showInformationMessage('Sorry to hear that');
-			} else {
-				console.log({ answer });
-			}
-
-		})
-	);
+	// context.subscriptions.push(
+	// 	vscode.commands.registerCommand('avalon.refreshWebViews', () => {
+	// 		HelloWorldPanel.kill();
+	// 		HelloWorldPanel.createOrShow(context.extensionUri);
+	// 	})
+	// );
 
 }
 

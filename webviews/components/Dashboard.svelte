@@ -143,7 +143,7 @@
           <p class="heading" on:click={() => assignTask(room)}>{room.name}</p>
           <div>
             <div class="header">
-              <p>{room.description}</p>
+              <p class="desc">{room.description}</p>
 
               <div class="trash">
                 <!-- svelte-ignore missing-declaration -->

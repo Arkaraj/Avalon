@@ -168,6 +168,35 @@ admin.delete("/leaveAdmin/:roomId", isAdmin, async (req: any, res) => {
 
 });
 
+admin.put("/:roomId", async(req:any, res) => {
+
+    const {desc}:{desc:string} = req.body;
+
+    try {
+        
+        const room = await Room.findById(req.params.roomId);
+
+        if(room?.description)
+        {
+            room.description = desc;
+
+            room.save(err => {
+                if(err)
+                {
+                    res.send({ msg: "Internal Server error", msgError: true });
+                }
+                else {
+                    res.send({ room, msgError: false });
+                }
+            });
+        }
+
+    } catch (err) {
+        res.send({ msg: "Internal Server error", msgError: true });
+    }
+
+});
+
 admin.delete("/:roomId/:userId",isAdmin, async (req: any, res) => {
 
     try {

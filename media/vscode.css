@@ -124,6 +124,10 @@ blockquote:hover {
   margin-top: 4rem;
 }
 
+.desc {
+  word-wrap: break-word;
+}
+
 .code {
   color: var(--vscode-textLink-foreground);
 }
@@ -149,6 +153,7 @@ blockquote:hover {
   /* color: var(--vscode-badge-background); */
   cursor: pointer;
 }
+
 .closeIcons {
   /* color: var(--vscode-inputValidation-errorForeground); */
   color: var(--vscode-testing-iconErrored);

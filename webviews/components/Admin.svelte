@@ -21,7 +21,7 @@
     </p>
     <p class="code">{admin.code}</p>
   </div>
-  <div>
+  <div class="desc">
     {admin.description}
     <div class="trash">
       <!-- svelte-ignore missing-declaration -->

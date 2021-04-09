@@ -15,7 +15,9 @@
   let error: Boolean = false;
   let msg: string = "";
   let visible: Boolean = false;
+  let editable: Boolean = false;
   let text: string = "";
+  let desc: string = room.description;
   // let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
   let memberTasks: Array<Task> = [];
 
@@ -90,6 +92,37 @@
         break;
     }
   });
+
+  const editDesc = (desc: string) => {
+    editable = !editable;
+    console.log("edit");
+  };
+  const postDesc = async (desc: string) => {
+    const description = {
+      desc,
+    };
+
+    const response = await fetch(`http://localhost:3000/admin/${room._id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(description),
+    });
+    const data = await response.json();
+    if (data.msgError) {
+      error = true;
+      msg = data.msg;
+      return;
+    } else {
+      error = false;
+
+      room.description = data.room.description;
+
+      editable = false;
+    }
+  };
 </script>
 
 <div class="header">
@@ -113,9 +146,29 @@
   </h4>
 </div>
 
-<div>
+<div class="desc">
   <p class="bold">Description:</p>
   <p>{room.description}</p>
+  <p class="trash">
+    <svg
+      class="icons"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      on:click={() => editDesc(desc)}
+      ><path
+        d="M13.23 1h-1.46L3.52 9.25l-.16.22L1 13.59 2.41 15l4.12-2.36.22-.16L15 4.23V2.77L13.23 1zM2.41 13.59l1.51-3 1.45 1.45-2.96 1.55zm3.83-2.06L4.47 9.76l8-8 1.77 1.77-8 8z"
+      /></svg
+    >
+  </p>
+  {#if editable}
+    <h3 class="code">Edit:</h3>
+    <form on:submit|preventDefault={async () => await postDesc(desc)}>
+      <input type="text" bind:value={desc} />
+    </form>
+  {/if}
 </div>
 
 <!-- <pre>{JSON.stringify(members,null,2)}</pre> -->
@@ -184,6 +237,7 @@
 
 <!-- svelte-ignore missing-declaration -->
 <button
+  class="logout"
   on:click={() => {
     tsvscode.postMessage({
       type: "leaveAdmin",

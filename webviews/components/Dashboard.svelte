@@ -4,6 +4,7 @@
   import Admin from "./Admin.svelte";
   import AdminPanel from "./AdminPanel.svelte";
   import TaskPanel from "./TaskPanel.svelte";
+  
   // import Task from "./Task.svelte";
   // import Router from "svelte-routing/src/Router.svelte";
   // import Link from "svelte-routing/src/Link.svelte";
@@ -46,7 +47,7 @@
   }
 
   const getRooms = async () => {
-    const response = await fetch("https://avalon7.herokuapp.com/room", {
+    const response = await fetch("http://localhost:3000/room", {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },

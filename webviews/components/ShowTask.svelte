@@ -23,7 +23,7 @@
     };
 
     const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/task/${room._id}/${userId}/`,
+      `http://localhost:3000/admin/task/${room._id}/${userId}/`,
       {
         method: "POST",
         headers: {
@@ -51,7 +51,7 @@
 
   const deleteTask = async (taskId: string) => {
     const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/task/${taskId}/`,
+      `http://localhost:3000/admin/task/${taskId}/`,
       {
         method: "DELETE",
         headers: {
@@ -105,7 +105,7 @@
   <!-- List of all the tasks -->
 </div>
 {#if memberTasks.length == 0}
-  <p />
+  <p>No tasks assigned yet !</p>
 {:else}
   {#each memberTasks as task (task._id)}
     <ul class="taskView">

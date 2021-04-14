@@ -1,1 +1,1 @@
-export const apiBaseUrl = "https://avalon7.herokuapp.com";
+export const apiBaseUrl = "http://localhost:3000";

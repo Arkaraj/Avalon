@@ -17,7 +17,7 @@
   let msg: string = "";
   onMount(async () => {
     const response = await fetch(
-      `https://avalon7.herokuapp.com/task/${room._id}`,
+      `http://localhost:3000/task/${room._id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -41,7 +41,7 @@
 
   const taskCompleted = async (taskId: string) => {
     const response = await fetch(
-      `https://avalon7.herokuapp.com/task/${taskId}`,
+      `http://localhost:3000/task/${taskId}`,
       {
         method: "PUT",
         headers: {

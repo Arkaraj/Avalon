@@ -12,7 +12,9 @@
   export let accessToken: string;
 
   let members: Array<User> = [];
+  let admins: Array<User> = [];
   let error: Boolean = false;
+  let view: Boolean = false;
   let msg: string = "";
   let editable: Boolean = false;
   let text: string = "";
@@ -26,15 +28,12 @@
     //   type: "showRoomMembers",
     //   value: { roomId: admin._id, accessToken },
     // });
-    const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/${room._id}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:3000/admin/${room._id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     const data = await response.json();
     if (data.msgError) {
@@ -44,11 +43,7 @@
     } else {
       error = false;
       members = data.members;
-      // Setting all to false
-      // members.forEach((member) => {
-      //   member.visible = false;
-      // });
-      // console.log(data.members);
+      admins = data.admins;
     }
   };
   const getMemberTasks = async (userId: string) => {
@@ -57,7 +52,7 @@
     //   value: { roomId: admin._id, accessToken },
     // });
     const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/${room._id}/${userId}`,
+      `http://localhost:3000/admin/${room._id}/${userId}`,
       {
         method: "GET",
         headers: {
@@ -116,17 +111,14 @@
       desc,
     };
 
-    const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/${room._id}/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(description),
-      }
-    );
+    const response = await fetch(`http://localhost:3000/admin/${room._id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(description),
+    });
     const data = await response.json();
     if (data.msgError) {
       error = true;
@@ -250,6 +242,17 @@
   {:else}
     <p>{msg}</p>
   {/if}
+{/if}
+
+<!-- svelte-ignore missing-declaration -->
+<div class="header">
+  <h4 class="addAdmin" on:click={() => (view = !view)}>Show Admins</h4>
+</div>
+
+{#if view}
+  {#each admins as admin (admin._id)}
+    <p>{admin.name}</p>
+  {/each}
 {/if}
 
 <!-- svelte-ignore missing-declaration -->

@@ -15,6 +15,7 @@
     "onCommand:avalon.authenticate",
     "onCommand:avalon.createRoom",
     "onCommand:avalon.joinRoom",
+    "onCommand:avalon.refreshTask",
     "onView:Avalon-task"
   ],
   "main": "./dist/extension.js",
@@ -44,7 +45,6 @@
         }
       ]
     },
-    
     "menus": {
       "view/title": [
         {

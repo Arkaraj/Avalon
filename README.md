@@ -1,53 +1,38 @@
 # Avalon
 
-A Vs code extension to assign tasks to members of a club/chapter
+<badges>
 
-## 🚧🚧🚧 Work on Progress 🚧🚧🚧
+An app to assign tasks to members of a club/chapter by creating and joining custom Rooms
 
-This extension is a work on progress....
+<image gif>
 
-## Requirements
+## Features
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- [x] GitHub Authentication
+- [x] Create/join Rooms with unique Room Codes
+- [x] Easy Tasks assignment/Monitoring in Rooms
+- [x] View all Room's Tasks in one place
 
-## Extension Settings
+<br>
+## Tech Stack
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- Client - SVELTE
+- SERVER/API - NODE.JS (TypeScript)
+- DB - MongoDB
 
-For example:
+## How to run locally
 
-This extension contributes the following settings:
+0. git clone <repo>
+1. npm i (install all packages)
+2. npm run watch (concurrently runs webpack and rollup)
+3. To run in local server:
+   3.1 Find all https://avalon7.herokuapp.com/ and change to localhost to which ever port, backend is running on
+4. press F5 for debug
 
-- `myExtension.enable`: enable/disable this extension
-- `myExtension.thing`: set to `blah` to do something
+enjoy 🎉🎉
 
-- [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+## Server
 
-### For more information
+Heroku: https://avalon7.herokuapp.com/
 
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
-
-### Useful GitHub Repo
-
-https://github.com/microsoft/vscode-extension-samples
-
-## TECH STACK
-
-- SVELTE
-- NODE.JS (TypeScript)
-
-### Svelte
-
-A light weight Js front end framework
-
-rollup.config.js => for compiling svelte
-
-```sh
-$ npm i -D rollup-plugin-svelte @rollup/plugin-node-resolve @rollup/plugin-commonjs rollup-plugin-terser svelte-preprocess @rollup/plugin-typescript
-
-
-$ npm i -D @tsconfig/svelte svelte svelte-check svelte-preprocess rollup
-```
+<GitHub Link>

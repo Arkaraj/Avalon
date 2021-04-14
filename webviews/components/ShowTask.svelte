@@ -10,6 +10,7 @@
     code: string;
     description: string;
   };
+
   export let accessToken: string;
   let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
 
@@ -22,7 +23,7 @@
     };
 
     const response = await fetch(
-      `http://localhost:3000/admin/task/${room._id}/${userId}/`,
+      `https://avalon7.herokuapp.com/admin/task/${room._id}/${userId}/`,
       {
         method: "POST",
         headers: {
@@ -50,7 +51,7 @@
 
   const deleteTask = async (taskId: string) => {
     const response = await fetch(
-      `http://localhost:3000/admin/task/${taskId}/`,
+      `https://avalon7.herokuapp.com/admin/task/${taskId}/`,
       {
         method: "DELETE",
         headers: {

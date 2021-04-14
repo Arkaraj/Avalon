@@ -3,6 +3,7 @@ export type User = {
     name: string;
     githubId: string;
     tasks: Array<Task>;
+    visible: boolean;
 };
 
 export type RoomDetail = {

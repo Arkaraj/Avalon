@@ -120,6 +120,17 @@ blockquote:hover {
   justify-content: space-between;
 }
 
+.loading {
+  width: 2rem;
+  height: 2rem;
+  margin: 10rem auto 0;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  border-top: 3px solid var(--vscode-textLink-foreground);
+  -webkit-animation: spinner 0.6s linear infinite;
+  animation: spinner 0.6s linear infinite;
+}
+
 .logout {
   margin-top: 4rem;
 }
@@ -198,4 +209,10 @@ blockquote:hover {
 
 .strikeout {
   text-decoration: line-through;
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(1turn);
+  }
 }

@@ -14,10 +14,10 @@
   let members: Array<User> = [];
   let error: Boolean = false;
   let msg: string = "";
-  let visible: Boolean = false;
   let editable: Boolean = false;
   let text: string = "";
   let desc: string = room.description;
+
   // let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
   let memberTasks: Array<Task> = [];
 
@@ -26,12 +26,15 @@
     //   type: "showRoomMembers",
     //   value: { roomId: admin._id, accessToken },
     // });
-    const response = await fetch(`http://localhost:3000/admin/${room._id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await fetch(
+      `https://avalon7.herokuapp.com/admin/${room._id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
 
     const data = await response.json();
     if (data.msgError) {
@@ -41,6 +44,10 @@
     } else {
       error = false;
       members = data.members;
+      // Setting all to false
+      // members.forEach((member) => {
+      //   member.visible = false;
+      // });
       // console.log(data.members);
     }
   };
@@ -50,7 +57,7 @@
     //   value: { roomId: admin._id, accessToken },
     // });
     const response = await fetch(
-      `http://localhost:3000/admin/${room._id}/${userId}`,
+      `https://avalon7.herokuapp.com/admin/${room._id}/${userId}`,
       {
         method: "GET",
         headers: {
@@ -78,9 +85,17 @@
     // await getMemberTasks("605874bb197f7b0b96dfdc1f"); // Pranav
   });
 
-  const showTask = async (userId: string) => {
+  const showTask = async (userId: string, member: User) => {
+    // Close other mebmers panel if open, O(n), can be better
+    members
+      .filter((m) => m._id != userId)
+      .forEach((mem) => {
+        mem.visible = false;
+      });
+    // For UI
+    member.visible = !member.visible;
+
     await getMemberTasks(userId);
-    visible = !visible;
   };
 
   window.addEventListener("message", async (e) => {
@@ -95,21 +110,23 @@
 
   const editDesc = (desc: string) => {
     editable = !editable;
-    console.log("edit");
   };
   const postDesc = async (desc: string) => {
     const description = {
       desc,
     };
 
-    const response = await fetch(`http://localhost:3000/admin/${room._id}/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(description),
-    });
+    const response = await fetch(
+      `https://avalon7.herokuapp.com/admin/${room._id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(description),
+      }
+    );
     const data = await response.json();
     if (data.msgError) {
       error = true;
@@ -186,7 +203,7 @@
             <h3 class="header">
               <h3
                 class="heading"
-                on:click={async () => await showTask(member._id)}
+                on:click={async () => await showTask(member._id, member)}
               >
                 {member.name}
               </h3>
@@ -218,7 +235,7 @@
               </div>
             </h3>
           </li>
-          {#if visible}
+          {#if member.visible}
             <div class="taskCard">
               <ShowTask {text} {accessToken} {memberTasks} {member} {room} />
             </div>

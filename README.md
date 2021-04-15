@@ -43,6 +43,9 @@ enjoy 🎉🎉
 
 ## Server
 
-Heroku: http://localhost:3000/
+Local: http://localhost:3000/
+Heroku: https://avalon7.herokuapp.com/
 
-<GitHub Link>
+https://github.com/Arkaraj/Avalon/tree/master/avalon-api
+
+## License

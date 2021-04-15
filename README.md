@@ -1,10 +1,26 @@
 # Avalon
 
 <badges>
+Dummy badges
+
+https://img.shields.io/visual-studio-marketplace/i/ritwickdey.LiveServer
+https://img.shields.io/visual-studio-marketplace/d/ritwickdey.LiveServer
+https://img.shields.io/visual-studio-marketplace/r/ritwickdey.LiveServer
+https://img.shields.io/visual-studio-marketplace/v/swellaby.rust-pack
 
 An app to assign tasks to members of a club/chapter by creating and joining custom Rooms
 
 <image gif>
+
+https://user-images.githubusercontent.com/55324916/114911162-58349700-9e3c-11eb-9742-63d9ffb96d72.mov
+
+#### Room Creation:
+
+https://user-images.githubusercontent.com/55324916/114911197-61256880-9e3c-11eb-9ab2-4b04894efd6f.mov
+
+#### Joining Room:
+
+https://user-images.githubusercontent.com/55324916/114911212-64b8ef80-9e3c-11eb-8705-7d8bad3ce1da.mov
 
 ## Features
 
@@ -44,8 +60,9 @@ enjoy 🎉🎉
 ## Server
 
 Local: http://localhost:3000/
+
 Heroku: https://avalon7.herokuapp.com/
 
-https://github.com/Arkaraj/Avalon/tree/master/avalon-api
+Server GitHub Repo: https://github.com/Arkaraj/Avalon-api
 
 ## License

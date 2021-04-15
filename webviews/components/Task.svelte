@@ -13,7 +13,7 @@
   }> = [];
 
   const getTasks = async () => {
-    const response = await fetch("http://localhost:3000/task", {
+    const response = await fetch("https://avalon7.herokuapp.com/task", {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },

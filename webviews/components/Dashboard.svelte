@@ -47,7 +47,7 @@
   }
 
   const getRooms = async () => {
-    const response = await fetch("http://localhost:3000/room", {
+    const response = await fetch("https://avalon7.herokuapp.com/room", {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },

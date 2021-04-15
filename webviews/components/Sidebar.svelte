@@ -23,7 +23,7 @@
         case "Token":
           accessToken = message.value;
 
-          const response = await fetch("http://localhost:3000/me", {
+          const response = await fetch("https://avalon7.herokuapp.com/me", {
             headers: {
               authorization: `Bearer ${accessToken}`,
             },

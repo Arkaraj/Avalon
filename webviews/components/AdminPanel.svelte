@@ -28,7 +28,7 @@
     //   type: "showRoomMembers",
     //   value: { roomId: admin._id, accessToken },
     // });
-    const response = await fetch(`http://localhost:3000/admin/${room._id}`, {
+    const response = await fetch(`https://avalon7.herokuapp.com/admin/${room._id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -52,7 +52,7 @@
     //   value: { roomId: admin._id, accessToken },
     // });
     const response = await fetch(
-      `http://localhost:3000/admin/${room._id}/${userId}`,
+      `https://avalon7.herokuapp.com/admin/${room._id}/${userId}`,
       {
         method: "GET",
         headers: {
@@ -111,7 +111,7 @@
       desc,
     };
 
-    const response = await fetch(`http://localhost:3000/admin/${room._id}/`, {
+    const response = await fetch(`https://avalon7.herokuapp.com/admin/${room._id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

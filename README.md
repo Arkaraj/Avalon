@@ -3,10 +3,10 @@
 <badges>
 Dummy badges
 
-https://img.shields.io/visual-studio-marketplace/i/ritwickdey.LiveServer
-https://img.shields.io/visual-studio-marketplace/d/ritwickdey.LiveServer
-https://img.shields.io/visual-studio-marketplace/r/ritwickdey.LiveServer
-https://img.shields.io/visual-studio-marketplace/v/swellaby.rust-pack
+![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/ritwickdey.LiveServer)
+![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/ritwickdey.LiveServer)
+![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/ritwickdey.LiveServer)
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/swellaby.rust-pack)
 
 An app to assign tasks to members of a club/chapter by creating and joining custom Rooms
 

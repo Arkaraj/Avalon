@@ -1,15 +1,10 @@
 <script lang="ts">
-  import type { Task, User } from "../types";
+  import { apiBaseUrl, Room, Task, User } from "../types";
 
   export let text: string;
   export let memberTasks: Array<Task>;
   export let member: User;
-  export let room: {
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  };
+  export let room: Room;
 
   export let accessToken: string;
   let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
@@ -23,7 +18,7 @@
     };
 
     const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/task/${room._id}/${userId}/`,
+      `${apiBaseUrl}/admin/task/${room._id}/${userId}/`,
       {
         method: "POST",
         headers: {
@@ -51,7 +46,7 @@
 
   const deleteTask = async (taskId: string) => {
     const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/task/${taskId}/`,
+      `${apiBaseUrl}/admin/task/${taskId}/`,
       {
         method: "DELETE",
         headers: {

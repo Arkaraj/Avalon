@@ -1,13 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { Task, User } from "../types";
+  import { apiBaseUrl, Room, Task, User } from "../types";
 
-  export let room: {
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  };
+  export let room: Room;
 
   export let accessToken: string;
 
@@ -17,7 +12,7 @@
   let msg: string = "";
   onMount(async () => {
     const response = await fetch(
-      `https://avalon7.herokuapp.com/task/${room._id}`,
+      `${apiBaseUrl}/task/${room._id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -41,7 +36,7 @@
 
   const taskCompleted = async (taskId: string) => {
     const response = await fetch(
-      `https://avalon7.herokuapp.com/task/${taskId}`,
+      `${apiBaseUrl}/task/${taskId}`,
       {
         method: "PUT",
         headers: {

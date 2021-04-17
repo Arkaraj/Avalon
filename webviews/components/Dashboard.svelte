@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { User } from "../types";
+  import { apiBaseUrl, Room, User } from "../types";
   import { onMount } from "svelte";
   import Admin from "./Admin.svelte";
   import AdminPanel from "./AdminPanel.svelte";
@@ -16,18 +16,8 @@
 
   let page: "main" | "tasks" | "admin" = tsvscode.getState()?.page || "main";
   // tsvscode.getState()?.page ||
-  let rooms: Array<{
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  }> = [];
-  let roomData: {
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  } | null = tsvscode.getState()?.roomData || null;
+  let rooms: Array<Room> = [];
+  let roomData: Room | null = tsvscode.getState()?.roomData || null;
   let admin: Array<{
     _id: string;
     name: string;
@@ -35,19 +25,14 @@
     description: string;
   }> = [];
 
-  let adminData: {
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  } | null = tsvscode.getState()?.adminData || null;
+  let adminData: Room | null = tsvscode.getState()?.adminData || null;
 
   $: {
     tsvscode.setState({ page, roomData, adminData, accessToken });
   }
 
   const getRooms = async () => {
-    const response = await fetch("https://avalon7.herokuapp.com/room", {
+    const response = await fetch(`${apiBaseUrl}/room`, {
       headers: {
         authorization: `Bearer ${accessToken}`,
       },

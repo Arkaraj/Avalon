@@ -26,6 +26,7 @@ https://user-images.githubusercontent.com/55324916/114911212-64b8ef80-9e3c-11eb-
 
 - [x] GitHub Authentication
 - [x] Create/join Rooms with unique Room Codes
+- [x] Add other admins to the Room
 - [x] Easy Tasks assignment/Monitoring in Rooms
 - [x] View all Room's Tasks in one place
 
@@ -66,3 +67,5 @@ Heroku: https://avalon7.herokuapp.com/
 Server GitHub Repo: https://github.com/Arkaraj/Avalon-api
 
 ## License
+
+Apache License Version 2.0

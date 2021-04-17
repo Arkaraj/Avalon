@@ -189,6 +189,22 @@ blockquote:hover {
   cursor: pointer;
 }
 
+.roomMsg {
+  border: 1px solid #ccc;
+  word-break: break-all;
+}
+.roomMsg:hover {
+  border-style: dashed;
+}
+
+.msgHero {
+  color: var(--vscode-textLink-foreground);
+}
+
+.pre {
+  margin: 1em 0px;
+}
+
 .addAdmin:hover {
   text-decoration: underline;
 }

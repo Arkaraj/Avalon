@@ -1,12 +1,12 @@
 import * as _vscode from "vscode";
 
 declare global {
-    const tsvscode: {
-        postMessage: ({ type: string, value: any }) => void;
-        getState: () => any;
-        setState: (state: any) => void;
-    };
-    // const accessToken: string;
+  const tsvscode: {
+    postMessage: ({ type: string, value: any }) => void;
+    getState: () => any;
+    setState: (state: any) => void;
+  };
+  // const accessToken: string;
 }
 
 // export function showInformationMessage(message: string, ...items: string[]): Thenable<string | undefined>;

@@ -1,14 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { Task, User } from "../types";
+  import { apiBaseUrl, Room, Task, User } from "../types";
   import ShowTask from "./ShowTask.svelte";
 
-  export let room: {
-    _id: string;
-    name: string;
-    code: string;
-    description: string;
-  };
+  export let room: Room;
   export let accessToken: string;
 
   let members: Array<User> = [];
@@ -28,7 +23,7 @@
     //   type: "showRoomMembers",
     //   value: { roomId: admin._id, accessToken },
     // });
-    const response = await fetch(`https://avalon7.herokuapp.com/admin/${room._id}`, {
+    const response = await fetch(`${apiBaseUrl}/admin/${room._id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -52,7 +47,7 @@
     //   value: { roomId: admin._id, accessToken },
     // });
     const response = await fetch(
-      `https://avalon7.herokuapp.com/admin/${room._id}/${userId}`,
+      `${apiBaseUrl}/admin/${room._id}/${userId}`,
       {
         method: "GET",
         headers: {
@@ -111,7 +106,7 @@
       desc,
     };
 
-    const response = await fetch(`https://avalon7.herokuapp.com/admin/${room._id}/`, {
+    const response = await fetch(`${apiBaseUrl}/admin/${room._id}/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -177,8 +172,19 @@
     <form on:submit|preventDefault={async () => await postDesc(desc)}>
       <input type="text" bind:value={desc} />
     </form>
+    <h4 class="pre">Hit Enter to Submit, Give some time for changes to activate</h4>
   {/if}
 </div>
+
+<!-- Only when room has a message -->
+{#if room._id}
+<div class="roomMsg">
+  <h3 class="msgHero">Room Message:</h3>
+  <p>Today we will be having meeting at 4 sharp.
+    Join: https://www.youtube.com/watch?v=VIqJ4rdKUEY&ab_channel=TutorialsPoint%28India%29Ltd.
+  </p>
+</div>
+{/if}
 
 <!-- <pre>{JSON.stringify(members,null,2)}</pre> -->
 {#if members.length == 0}

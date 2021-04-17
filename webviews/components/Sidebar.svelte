@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   // import Router from "svelte-routing/src/Router.svelte";
   // import Route from "svelte-routing/src/Route.svelte";
-  import type { User } from "../types";
+  import { apiBaseUrl, User } from "../types";
   import Dashboard from "./Dashboard.svelte";
   // import Link from "svelte-routing/src/Link.svelte";
   // import Room from "./Room.svelte";
@@ -23,7 +23,7 @@
         case "Token":
           accessToken = message.value;
 
-          const response = await fetch("https://avalon7.herokuapp.com/me", {
+          const response = await fetch(`${apiBaseUrl}/me`, {
             headers: {
               authorization: `Bearer ${accessToken}`,
             },

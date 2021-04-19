@@ -18,6 +18,9 @@
   // let tasks: Array<{ _id: string; text: string; completed: boolean }> = [];
   let memberTasks: Array<Task> = [];
 
+  let msgEdittor: boolean = false;
+  let roomMsg: string = "";
+
   const getMembers = async () => {
     // tsvscode.postMessage({
     //   type: "showRoomMembers",
@@ -46,15 +49,12 @@
     //   type: "showRoomMembers",
     //   value: { roomId: admin._id, accessToken },
     // });
-    const response = await fetch(
-      `${apiBaseUrl}/admin/${room._id}/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await fetch(`${apiBaseUrl}/admin/${room._id}/${userId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     const data = await response.json();
     if (data.msgError) {
@@ -98,7 +98,7 @@
     }
   });
 
-  const editDesc = (desc: string) => {
+  const editDesc = () => {
     editable = !editable;
   };
   const postDesc = async (desc: string) => {
@@ -125,6 +125,79 @@
       room.description = data.room.description;
 
       editable = false;
+    }
+  };
+
+  // Message
+  const addMessage = async () => {
+    const mesg = {
+      desc,
+    };
+
+    const response = await fetch(`${apiBaseUrl}/room/msg/${room._id}/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(mesg),
+    });
+    const data = await response.json();
+    if (data.msgError) {
+      error = true;
+      msg = data.msg;
+      return;
+    } else {
+      error = false;
+
+      room.description = data.room.description;
+
+      msgEdittor = false;
+    }
+  };
+  const updateMessage = async (mesg: string) => {
+    const mssg = {
+      mesg,
+    };
+
+    const response = await fetch(`${apiBaseUrl}/room/msg/${room._id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(mssg),
+    });
+    const data = await response.json();
+
+    if (data.msgError) {
+      error = true;
+      msg = data.msg;
+      return;
+    } else {
+      error = false;
+
+      room.message = mesg
+
+      msgEdittor = false;
+    }
+  };
+  const removeMessage = async () => {
+    const response = await fetch(`${apiBaseUrl}/room/msg/${room._id}/`, {
+      method: "DElETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const data = await response.json();
+    if (data.msgError) {
+      error = true;
+      msg = data.msg;
+      return;
+    } else {
+      room.message = ''
+      error = false;
     }
   };
 </script>
@@ -161,7 +234,7 @@
       viewBox="0 0 16 16"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"
-      on:click={() => editDesc(desc)}
+      on:click={() => editDesc()}
       ><path
         d="M13.23 1h-1.46L3.52 9.25l-.16.22L1 13.59 2.41 15l4.12-2.36.22-.16L15 4.23V2.77L13.23 1zM2.41 13.59l1.51-3 1.45 1.45-2.96 1.55zm3.83-2.06L4.47 9.76l8-8 1.77 1.77-8 8z"
       /></svg
@@ -172,18 +245,38 @@
     <form on:submit|preventDefault={async () => await postDesc(desc)}>
       <input type="text" bind:value={desc} />
     </form>
-    <h4 class="pre">Hit Enter to Submit, Give some time for changes to activate</h4>
+    <h4 class="pre">
+      Hit Enter to Submit, Give some time for changes to activate
+    </h4>
   {/if}
 </div>
 
-<!-- Only when room has a message -->
-{#if room._id}
-<div class="roomMsg">
-  <h3 class="msgHero">Room Message:</h3>
-  <p>Today we will be having meeting at 4 sharp.
-    Join: https://www.youtube.com/watch?v=VIqJ4rdKUEY&ab_channel=TutorialsPoint%28India%29Ltd.
-  </p>
+<div>
+  <p class="addAdmin"
+  on:click={() => {msgEdittor = !msgEdittor}}
+  >Create Room Message +</p>
+
+  {#if msgEdittor}
+
+  <h4 class="pre">
+    Everyone in this Room will be Displayed this Message
+  </h4>
+
+    <form on:submit|preventDefault={async () => await updateMessage(roomMsg)}>
+      <input type="text" bind:value={roomMsg} />
+    </form>
+    <h4 class="pre">Hit Enter to Display the Room Message, Go back to Dashboard and again comeback to this room to see the changes</h4>
+  {/if}
 </div>
+<!-- Only when room has a message -->
+{#if room.message}
+  <div class="roomMsg">
+    <h3 class="msgHero">Room Message:</h3>
+    <p class="dispMessage">
+      {room.message}
+    </p>
+  </div>
+  <p on:click={() => removeMessage()} class="delete">Delete</p>
 {/if}
 
 <!-- <pre>{JSON.stringify(members,null,2)}</pre> -->

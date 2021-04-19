@@ -1,14 +1,20 @@
 # Avalon
 
-<badges>
-Dummy badges
+<p align="center">
+<a href="https://github.com/Arkaraj/Avalon">
+	<img src="https://user-images.githubusercontent.com/55324916/115232508-659b9b00-a134-11eb-91ae-f94bc534eb72.png" alt="Avalon - Give Task with a ease"/>
+</a>
+	<h2 align="center"> Avalon </h2>
+	<h4 align="center"> An app to assign tasks to members of a club/chapter by creating and joining custom Rooms by remaining in the comfort of Vs Code<h4>
+</p>
 
-![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/ritwickdey.LiveServer)
+<badges>
+<Dummy badges>
+
+<!-- ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/ritwickdey.LiveServer)
 ![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/ritwickdey.LiveServer)
 ![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/ritwickdey.LiveServer)
-![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/swellaby.rust-pack)
-
-An app to assign tasks to members of a club/chapter by creating and joining custom Rooms
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/swellaby.rust-pack) -->
 
 <image gif>
 
@@ -27,6 +33,7 @@ https://user-images.githubusercontent.com/55324916/114911212-64b8ef80-9e3c-11eb-
 - [x] GitHub Authentication
 - [x] Create/join Rooms with unique Room Codes
 - [x] Add other admins to the Room
+- [x] Display Common Messages in a Room
 - [x] Easy Tasks assignment/Monitoring in Rooms
 - [x] View all Room's Tasks in one place
 

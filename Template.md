@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://github.com/Arkaraj/Avalon">
-	<img src="" alt="Avalon - Give Task with a ease"/>
+	<img src="https://user-images.githubusercontent.com/55324916/115232508-659b9b00-a134-11eb-91ae-f94bc534eb72.png" alt="Avalon - Give Task with a ease"/>
 </a>
 	<h2 align="center"> Avalon </h2>
 	<h4 align="center"> < Insert Project Description Here > <h4>

@@ -73,6 +73,18 @@
   {/each}
 </div>
 
+
+{#if room.message}
+<h2 class="bold">Room Message: </h2>
+  <div class="roomMsg">
+    <h3 class="msgHero">Room Message:</h3>
+    <p>
+      {room.message}
+    </p>
+  </div>
+  <!-- <p class="code">Hide</p> -->
+{/if}
+
 <h2 class="bold">Your Tasks:</h2>
 
 {#if !error}

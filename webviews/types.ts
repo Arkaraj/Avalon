@@ -16,6 +16,7 @@ export type Room = {
   admin: Array<string | null>;
   name: string;
   description: string;
+  message: string;
   code: string;
   members: Array<string | null>;
 };

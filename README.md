@@ -1,12 +1,14 @@
 # Avalon
 
+<!-- https://user-images.githubusercontent.com/55324916/115232508-659b9b00-a134-11eb-91ae-f94bc534eb72.png -->
+
 <p align="center">
-<a href="https://github.com/Arkaraj/Avalon">
-	<img src="https://user-images.githubusercontent.com/55324916/115232508-659b9b00-a134-11eb-91ae-f94bc534eb72.png" alt="Avalon - Give Task with a ease"/>
-</a>
-	<h2 align="center"> Avalon </h2>
-	<h4 align="center"> An app to assign tasks to members of a club/chapter by creating and joining custom Rooms by remaining in the comfort of Vs Code<h4>
+  <img src="https://raw.githubusercontent.com/Arkaraj/Avalon/master/media/logo.png" alt="Avalon - Give Task with a ease">
 </p>
+
+<h2 align="center"> Avalon </h2>
+<h4 align="center"> An app to assign tasks to members of a club/chapter by creating and joining custom Rooms by remaining in the comfort of Vs Code
+<h4>
 
 <badges>
 <Dummy badges>
@@ -18,15 +20,21 @@
 
 <image gif>
 
-https://user-images.githubusercontent.com/55324916/114911162-58349700-9e3c-11eb-9742-63d9ffb96d72.mov
+![Avalon extension overview](media/resources/dashboard.gif)
+
+<!-- https://user-images.githubusercontent.com/55324916/114911162-58349700-9e3c-11eb-9742-63d9ffb96d72.mov -->
 
 #### Room Creation:
 
-https://user-images.githubusercontent.com/55324916/114911197-61256880-9e3c-11eb-9ab2-4b04894efd6f.mov
+![Avalon extension overview](media/resources/dashboard.gif)
+
+<!-- https://user-images.githubusercontent.com/55324916/114911197-61256880-9e3c-11eb-9ab2-4b04894efd6f.mov -->
 
 #### Joining Room:
 
-https://user-images.githubusercontent.com/55324916/114911212-64b8ef80-9e3c-11eb-8705-7d8bad3ce1da.mov
+![Avalon extension overview](media/resources/dashboard.gif)
+
+<!-- https://user-images.githubusercontent.com/55324916/114911212-64b8ef80-9e3c-11eb-8705-7d8bad3ce1da.mov -->
 
 ## Features
 

@@ -2,8 +2,18 @@
   "name": "avalon",
   "displayName": "Avalon",
   "description": "Assigning Tasks to members of a club/chapter",
+  "author": {
+    "name": "Arkaraj",
+    "email": "arkaraj2017@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arkaraj/Avalon"
+  },
   "publisher": "Arkaraj",
-  "version": "0.0.1",
+  "icon": "media/avalon.png",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
   "engines": {
     "vscode": "^1.54.0"
   },

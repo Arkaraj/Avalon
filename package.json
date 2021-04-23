@@ -109,9 +109,7 @@
     "test-watch": "tsc -watch -p ./",
     "pretest": "npm run test-compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "watch-server": "cd avalon-api && npm run watch",
-    "server": "cd avalon-api && npm run dev"
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.1.0",

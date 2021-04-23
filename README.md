@@ -13,26 +13,24 @@
 <badges>
 <Dummy badges>
 
-<!-- ![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/ritwickdey.LiveServer)
-![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/ritwickdey.LiveServer)
-![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/ritwickdey.LiveServer)
-![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/swellaby.rust-pack) -->
+![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/arkaraj.avalon)
+![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/arkaraj.avalon)
+![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/arkaraj.avalon)
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/arkaraj.avalon)
 
-<image gif>
-
-![Avalon extension overview](media/resources/dashboard.gif)
+![Avalon extension overview](https://raw.githubusercontent.com/Arkaraj/Avalon/master/media/resources/dashboard.gif)
 
 <!-- https://user-images.githubusercontent.com/55324916/114911162-58349700-9e3c-11eb-9742-63d9ffb96d72.mov -->
 
 #### Room Creation:
 
-![Avalon extension overview](media/resources/dashboard.gif)
+![Avalon extension overview](https://raw.githubusercontent.com/Arkaraj/Avalon/master/media/resources/create.gif)
 
 <!-- https://user-images.githubusercontent.com/55324916/114911197-61256880-9e3c-11eb-9ab2-4b04894efd6f.mov -->
 
 #### Joining Room:
 
-![Avalon extension overview](media/resources/dashboard.gif)
+![Avalon extension overview](https://raw.githubusercontent.com/Arkaraj/Avalon/master/media/resources/join.gif)
 
 <!-- https://user-images.githubusercontent.com/55324916/114911212-64b8ef80-9e3c-11eb-8705-7d8bad3ce1da.mov -->
 

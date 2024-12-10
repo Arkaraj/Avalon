@@ -28,4 +28,4 @@ export type Task = {
   room: string;
 };
 
-export const apiBaseUrl = "https://avalon7.herokuapp.com";
+export const apiBaseUrl = 'https://avalon-api.vercel.app';

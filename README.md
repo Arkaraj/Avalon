@@ -75,7 +75,7 @@ enjoy 🎉🎉
 
 Local: http://localhost:3000/
 
-Heroku: https://avalon7.herokuapp.com/
+Vercel: https://avalon-api.vercel.app/
 
 Server GitHub Repo: https://github.com/Arkaraj/Avalon-api
 
